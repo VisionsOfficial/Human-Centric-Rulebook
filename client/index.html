@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>test</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+  <script>
+    async function eth_sign(){
+      if (typeof window.ethereum !== 'undefined'
+        || (typeof window.web3 !== 'undefined')) {
+        const web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+        const account = (await web3.eth.getAccounts())[0];
+        const input = $('#input').val();
+        const data = web3.utils.sha3(input);
+        const signature = await web3.eth.sign(data, account);
+        $('#console').text(signature);
+      } else {
+        $('#console').text("Metamask not detected");
+      }
+    }
+  </script>
+  <input type="text" id="input">
+  <p id="console"></p>
+  <button onclick="eth_sign()">Eth signature</button>
+  
+</body>
+</html>
