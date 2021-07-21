@@ -82,7 +82,7 @@ Below is a complete list of global handled errors.
 
 ## Authentication
 
-Most of the API routes restrict public access and require authentication. Authenticated requests must include a HTTP header `Authorization` holding a JWT token.
+Most of the API routes restrict public access and require authentication. Authenticated requests must include a HTTP header `Authorization` holding a JWT token. The JWT must be created using the `subject: auth`.
 
 ## Routes
 
@@ -102,7 +102,7 @@ Most of the API routes restrict public access and require authentication. Authen
 
 #### [private] POST /contracts/:contractId/sign/client
 
-> Uploads client's signature.
+> Uploads client's signature. This route requires a JWT token containing the `id` of a contract and a wallet `address` of a user.
 
 ##### Body fields
 
@@ -113,7 +113,7 @@ Most of the API routes restrict public access and require authentication. Authen
 
 #### [private] POST /contracts/:contractId/sign/provider
 
-> Uploads provider's signature.
+> Uploads provider's signature. This route requires a JWT token containing the `id` of a contract and a wallet `address` of a user.
 
 ##### Body fields
 
