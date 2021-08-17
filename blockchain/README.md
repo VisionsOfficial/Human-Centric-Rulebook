@@ -4,7 +4,7 @@
 
 The blockchain API is language independent software as a service with a RESTful API endpoint built for developers. Currently we only use the `test` environment which uses Ethereum Rinkeby network.
 
-* **Test**: https://fdodmap3zh.execute-api.eu-central-1.amazonaws.com/test/
+* **Test**: https://y5u9ap15bi.execute-api.us-east-1.amazonaws.com/test/
 
 ## Requests
 
@@ -73,13 +73,6 @@ Errors include a unique code number and an error message. The code number helps 
 
 Below is a complete list of global handled errors.
 
-### Global errors
-
-| Code | Message
-|-|-
-
-// TODO!!!!!
-
 ## Authentication
 
 Most of the API routes restrict public access and require authentication. Authenticated requests must include a HTTP header `Authorization` holding a JWT token. The JWT must be created using the `subject: auth`.
@@ -108,7 +101,7 @@ Most of the API routes restrict public access and require authentication. Authen
 
 | Name | Description
 |-|-
-| hash | [required] A `string` representing a message to be signed.
+| hash | [required] A `string` representing a message to be signed encoded as SHA3.
 | signature | [required] A `string` representing a signature of the signed message.
 
 #### [private] POST /contracts/:contractId/sign/provider
@@ -119,5 +112,9 @@ Most of the API routes restrict public access and require authentication. Authen
 
 | Name | Description
 |-|-
-| hash | [required] A `string` representing a message to be signed.
+| hash | [required] A `string` representing a message to be signed encoded as SHA3.
 | signature | [required] A `string` representing a signature of the signed message.
+
+#### [private] GET /contracts/:contractId/verify
+
+> Verifies the authenticity of a contract.

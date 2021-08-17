@@ -14,8 +14,10 @@
         const account = (await web3.eth.getAccounts())[0];
         const input = $('#input').val();
         const data = web3.utils.sha3(input);
+        console.log('hash:', data);
         const signature = await web3.eth.sign(data, account);
-        $('#console').text(signature);
+        console.log('signature:', signature);
+        $('#console').text('Done');
       } else {
         $('#console').text("Metamask not detected");
       }
