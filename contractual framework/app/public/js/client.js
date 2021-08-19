@@ -4,12 +4,12 @@ async function eth_sign(contractId){
       const web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
       const account = (await web3.eth.getAccounts())[0];
-      const data = web3.utils.sha3(contractId);
-      const signature = await web3.eth.sign(data, account);
+      const hash = web3.utils.sha3(contractId);
+      const signature = await web3.eth.sign(hash, account);
 
       if(signature) {
         $('#console').text(signature);
-        uploadClientSignature(contractId, data, signature);
+        uploadClientSignature(contractId, hash, signature);
       }
 
     } else {

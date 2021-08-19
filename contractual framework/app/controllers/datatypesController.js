@@ -87,6 +87,15 @@ exports.update = async (req, res, next) => {
         datatype.name = req.body.name || datatype.name;
         datatype.description = req.body.description || datatype.description;
 
+        datatype.conservation.type = req.body.conservationType || datatype.conservation.type;
+        datatype.conservation.unit = req.body.conservationUnit || datatype.conservation.unit;
+        datatype.conservation.length = req.body.conservationLength || datatype.conservation.length;
+        datatype.conservation.description = req.body.conservationDescription || datatype.conservation.description;
+
+        datatype.frequency.unit = req.body.frequencyUnit || datatype.frequency.unit;
+        datatype.frequency.value = req.body.frequencyValue || datatype.frequency.value;
+        datatype.frequency.repeats = req.body.frequencyRepeats || datatype.frequency.repeats;
+
         await datatype.save();
 
         return res.status(200).json({message: "Successfully updated DataType"});

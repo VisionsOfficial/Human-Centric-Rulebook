@@ -3,7 +3,7 @@ const axios = require('axios');
 const auth = require("./../config/token");
 
 // const ENDPOINT = "https://fdodmap3zh.execute-api.eu-central-1.amazonaws.com/test";
-const ENDPOINT = "https://dapsi-blockchain-test.nibbstack.com";
+const ENDPOINT = "https://y5u9ap15bi.execute-api.us-east-1.amazonaws.com/test";
 
 /**
 * Gets a paginated list of contracts
