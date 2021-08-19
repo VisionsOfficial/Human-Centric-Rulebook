@@ -17,10 +17,11 @@ exports.createDataSharingContract = async (req, res, next) => {
         if(!req.body.datatypes)
             return res.status(400).json({error: "missing-parameter-error", message: "Missing datatypes from request body"});
 
-        const contract = contracts.createDataSharingContract(req.body.serviceImportId, req.body.serviceExportId, req.body.purposeId, req.body.datatypes);
+        const contract = await contracts.createDataSharingContract(req.body.serviceImportId, req.body.serviceExportId, req.body.purposeId, req.body.datatypes);
 
-        if(contract)
+        if(contract != null) {
             return res.status(200).json({message: "Contract successfully created", contract});
+        }
         else {
             throw new Error("Failed to create contract");
         }

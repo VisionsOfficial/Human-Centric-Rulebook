@@ -59,7 +59,7 @@ module.exports = {
             return next();
         } catch (err) {
             return res.status(401).json({
-                error: error, 
+                error: err, 
                 message: "Unauthorized resource"
             });
         }

@@ -10,9 +10,25 @@ exports.all = async (req, res, next) => {
 
     try {
 
-        const service = await Service.findById(req.service);
+        const termsOfUse = await TermsOfUse.find({dataProvider: req.service});
 
-        const termsOfUse = await TermsOfUse.find({dataProvider: service.id});
+        return res.status(200).json({termsOfUse});
+
+    } catch (error) {
+
+        return res.status(500).json({error: "server-error"});
+
+    }
+}
+
+/**
+* Get one terms of use
+*/
+exports.one = async (req, res, next) => {
+
+    try {
+
+        const termsOfUse = await TermsOfUse.findById(req.params.id);
 
         return res.status(200).json({termsOfUse});
 
@@ -36,7 +52,7 @@ exports.create = async (req, res, next) => {
 
         let tou = new TermsOfUse();
 
-        tou.dataProvider = req.user;
+        tou.dataProvider = req.service;
 
         tou.name = req.body.name || "";
         tou.restrictions = req.body.restrictions || "";
@@ -57,6 +73,41 @@ exports.create = async (req, res, next) => {
     }
 }
 
+/**
+* Creates terms of use
+*/
+exports.update = async (req, res, next) => {
+
+    try {
+
+        if(!req.body.termsOfUseId) {
+            return res.status(400).json({error: "missing-parameter-error", message: "Missing termsOfUseId from request body"});
+        }
+
+        let tou = await TermsOfUse.findById(req.body.termsOfUseId);
+
+        if(!tou)
+            return res.status(404).json({error: "not-found-error", message: "Terms of Use with this ID do not exist"});
+
+        tou.name = req.body.name || tou.name;
+        tou.restrictions = req.body.restrictions || tou.restrictions;
+        tou.reporting = req.body.reporting || tou.reporting;
+        tou.audit = req.body.audit || tou.audit;
+        tou.dataSecurity = req.body.dataSecurity || tou.dataSecurity;
+        tou.dataProtection = req.body.dataProtection || tou.dataProtection;
+        tou.confidentialInformation = req.body.confidentialInformation || tou.confidentialInformation;
+        tou.intellectualPropertyRights = req.body.intellectualPropertyRights || tou.intellectualPropertyRights;
+        tou.otherTerms = req.body.otherTerms || tou.otherTerms;
+
+        await tou.save();
+
+        return res.status(200).json({message:"Successfully updated Terms of Use", termsOfUse: tou});
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error: "internal-server-error"});
+    }
+}
 
 /**
 * Deletes a terms of use with the specified id
@@ -73,7 +124,7 @@ exports.delete = async (req, res, next) => {
                 return res.status(400).json({message:"Could not delete terms of use as it is linked to datasets"});
             }
         } else {
-            return res.status(404).json({error: true, message:"Terms Of Use not found."});
+            return res.status(400).json({error: "missing-parameter-error", message:"Missing termsOfUseId from request body"});
         }
 
     } catch (error) {

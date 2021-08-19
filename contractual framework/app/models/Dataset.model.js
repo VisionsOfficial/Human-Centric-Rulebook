@@ -11,20 +11,7 @@ const schema = new Schema({
     /**
      * Datatypes
      */
-    datatypes: [{
-        /**
-         * Data
-         */
-        datatype: {type: Schema.ObjectId, ref: "DataType"},
-        /**
-         * Lcation of the data
-         */
-        location: {type: Schema.ObjectId, ref: "Service"},
-        /**
-         * Method of distribution
-         */
-        distribution: String,
-    }],
+    datatypes: [{type: Schema.ObjectId, ref: "DataType"}],
 
 
     /**

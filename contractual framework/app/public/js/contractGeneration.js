@@ -6,7 +6,9 @@ const confirmRequest = (serviceImportId, serviceExportId, purposeId, length, pur
     for (let i = 0; i < length; i++) {
         const element = document.getElementById(checkedId + i);
         const checked = element.checked;
-        datatypes.push({ checked, id: element.dataset.id })
+
+        if(checked)
+            datatypes.push(element.dataset.id);
     }
 
     const data = {
@@ -22,6 +24,7 @@ const confirmRequest = (serviceImportId, serviceExportId, purposeId, length, pur
         dataType: 'json',
         contentType: 'application/json',
         success(response) {
+            console.log(response);
         },
         error(jqXHR, status, err) {
         }

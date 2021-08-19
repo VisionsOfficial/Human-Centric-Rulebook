@@ -46,10 +46,22 @@ const schema = new Schema({
     * Information about data conservation
     */
     conservation: {
-        type: String,
-        unit: String,
-        length: String,
-        description: String,
+        type: {
+            type: String,
+            default: "",
+        },
+        unit: {
+            type: String,
+            default: "",
+        },
+        length: {
+            type: String,
+            default: "",
+        },
+        description: {
+            type: String,
+            default: "",
+        },
     },
     
     
@@ -57,8 +69,14 @@ const schema = new Schema({
     * Data access frequency
     */
     frequency:{
-        unit: String, // DAILY|MONTHLY|YEARLY
-        value: String, // 20
+        unit: {
+            type: String,
+            default: "",
+        }, // DAILY|MONTHLY|YEARLY
+        value: {
+            type: String,
+            default: "",
+        }, // 20
         repeats:{
             type:Boolean,
             default: false

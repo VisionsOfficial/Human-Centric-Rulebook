@@ -115,6 +115,55 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 | frequencyValue | [optional] A `string` representing the frequency value for the DataType
 | frequencyRepeats | [optional] A `boolean` representing the if the frequency repeats
 
+## Purposes API
+
+#### [private] GET /api/purposes
+
+> Get all your Purposes
+
+#### [private] GET /api/purposes/{purposeId}
+
+> Get info on one Purpose
+
+##### Path parameters
+
+| Name | Description
+|-|-
+| purposeId | [required] A `string` representing the ID of the Purpose
+
+#### [private] POST /api/purposes
+
+> Creates a Purpose
+
+##### Body fields
+
+| Name | Description
+|-|-
+| name | [required] A `string` representing the name of the Purpose
+| description | [required] A `string` representing the description of the Purpose
+
+#### [private] DELETE /api/purposes
+
+> Deletes a Purpose
+
+##### Body fields
+
+| Name | Description
+|-|-
+| purposeId | [required] A `string` representing the ID of the Purpose
+
+#### [private] PUT /api/purposes
+
+> Updates a Purpose
+
+##### Body fields
+
+| Name | Description
+|-|-
+| purposeId | [required] A `string` representing the ID of the Purpose
+| name | [optional] A `string` representing the name of the Purpose
+| description | [optional] A `string` representing the description of the Purpose
+
 ## Datasets API
 
 #### [private] GET /api/datasets/
@@ -220,4 +269,4 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 | serviceImportId | [required] A `string` representing the ID of the service acting as data user.
 | serviceExportId | [required] A `string` representing the ID of the service acting as data provider.
 | purposeId | [required] A `string` representing the ID of the purpose involved in the data sharing contract
-| datatypes | [required] An array of `DataType` representing the DataTypes involved in the data sharing contract
+| datatypes | [required] An array of `string` representing the DataType IDs involved in the data sharing contract for the specified purpose

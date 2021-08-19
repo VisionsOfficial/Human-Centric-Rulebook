@@ -10,6 +10,7 @@ const blockchain = require("./routes/blockchain");
 const contracts = require("./routes/contracts");
 const datasets = require("./routes/datasets");
 const datatypes = require("./routes/datatypes");
+const purposes = require("./routes/purposes");
 const services = require("./routes/services");
 const termsOfUse = require("./routes/termsOfUse");
 
@@ -42,6 +43,7 @@ app.use(`${api}/blockchain`, blockchain);
 app.use(`${api}/contracts`, contracts);
 app.use(`${api}/datatypes`, datatypes);
 app.use(`${api}/datasets`, datasets);
+app.use(`${api}/purposes`, purposes);
 app.use(`${api}/services`, services);
 app.use(`${api}/termsofuse`, termsOfUse);
 
