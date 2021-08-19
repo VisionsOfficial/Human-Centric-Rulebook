@@ -48,14 +48,12 @@ exports.uploadClientSignature = async (req, res, next) => {
         }
     })
     .then(data => {
-        return res.status(data.status).json(data);
+        console.log(data.data);
+        return res.status(data.status).json(data.data);
     })
     .catch(err => {
-        if(err.response) {
-            return res.status(err.response.status).json(err.message);
-        } else {
-            return res.status(400).json({message: "No response body from error."})
-        }
+        console.log(err.response.data.errors);
+        return res.status(400).json(err.response.data.errors);
     })
 }
 
@@ -85,7 +83,8 @@ exports.uploadProviderSignature = async (req, res, next) => {
         }
     })
     .then(data => {
-        return res.status(data.status).json(data);
+        console.log(data.data);
+        return res.status(data.status).json(data.data);
     })
     .catch(err => {
         return res.json(err);

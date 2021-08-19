@@ -66,7 +66,7 @@
                     </div>
                     <div class="modal-body">
                         <h4>Data user</h4>
-                        <h5><%= contract.serviceImport.name %></h5>
+                        <h5 class="text-primary"><%= contract.serviceImport.name %></h5>
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <td><b>Registration</b></td>
@@ -88,7 +88,7 @@
                             </tr>
                         </table>
                         <h4>Data provider</h4>
-                        <h5><%= contract.serviceExport.name %></h5>
+                        <h5 class="text-primary"><%= contract.serviceExport.name %></h5>
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <td><b>Registration</b></td>
@@ -111,14 +111,49 @@
                         </table>
                         <hr>
 
+                        <h4 class="text-center my-2" >Agreements</h5>
+
                         <% contract.dataSharing.forEach(item => { %>
                             <h4>Purpose</h4>
-                            <h5><%= item.purpose.name %></h5>
+                            <h5 class="text-primary"><%= item.purpose.name %></h5>
                             <hr>
                             <h4>Datatypes</h4>
                             <table class="table table-striped">
                                 <% item.datatypes.forEach(datatype => { %>
-                                    <td><%= datatype.name %></td>
+                                    <td class="text-primary"><%= datatype.name %></td>
+                                <% }) %>
+                            </table>
+                            <h4>Conditions</h4>
+                            <table class="table table-striped">
+                                <% item.conditions.forEach(condition => { %>
+                                    <tr>
+                                        <td><b>Audit</b></td>
+                                        <td><%-condition.audit%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Confidential Information</b></td>
+                                        <td><%-condition.confidentialInformation%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Data protection</b></td>
+                                        <td><%-condition.dataProtection%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Intellectual Property Rights</b></td>
+                                        <td><%-condition.intellectualPropertyRights%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Reporting</b></td>
+                                        <td><%-condition.reporting%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Restrictions</b></td>
+                                        <td><%-condition.restrictions%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Other Terms</b></td>
+                                        <td><%-condition.otherTerms%></td>
+                                    </tr>
                                 <% }) %>
                             </table>
                         <% }) %>

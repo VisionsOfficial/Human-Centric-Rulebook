@@ -24,11 +24,9 @@ const confirmRequest = (serviceImportId, serviceExportId, purposeId, length, pur
         dataType: 'json',
         contentType: 'application/json',
         success(response) {
-            console.log(response);
+            simulateContract(response.populatedContract);
         },
         error(jqXHR, status, err) {
         }
     });
-
-    simulateContract(purposeId, length, purposeName);
 };

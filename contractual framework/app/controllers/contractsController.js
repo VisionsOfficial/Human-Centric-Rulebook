@@ -1,6 +1,8 @@
 const Service = require("./../models/Service.model");
 const Purpose = require("./../models/Purpose.model");
 const DataSharingContract = require("./../models/DataSharingContract.model");
+const DataType = require("../models/DataType.model");
+const TermsOfUse = require("../models/TermsOfUse.model");
 
 const contracts = require("./../utils/contracts");
 
@@ -20,7 +22,30 @@ exports.createDataSharingContract = async (req, res, next) => {
         const contract = await contracts.createDataSharingContract(req.body.serviceImportId, req.body.serviceExportId, req.body.purposeId, req.body.datatypes);
 
         if(contract != null) {
-            return res.status(200).json({message: "Contract successfully created", contract});
+
+            let populatedContract = await DataSharingContract.findById(contract.id)
+                .populate("serviceImport serviceExport")
+
+            let populatedDatatypes = [];
+            let populatedConditions = [];
+
+            for (const ds of populatedContract.dataSharing) {
+                for (const dt of ds.datatypes) {
+                    const datatype = await DataType.findById(dt).select("name id");
+                    populatedDatatypes.push(datatype);
+                }
+                ds.datatypes = populatedDatatypes;
+                populatedDatatypes = [];
+
+                for(const c of ds.conditions) {
+                    const termsOfUse = await TermsOfUse.findById(c);
+                    populatedConditions.push(termsOfUse);
+                }
+                ds.conditions = populatedConditions;
+                populatedConditions = [];
+            }
+
+            return res.status(200).json({message: "Contract successfully created", contract, populatedContract});
         }
         else {
             throw new Error("Failed to create contract");

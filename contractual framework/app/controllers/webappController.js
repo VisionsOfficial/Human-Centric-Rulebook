@@ -1,9 +1,9 @@
 const DataType = require("./../models/DataType.model");
 const Purpose = require("./../models/Purpose.model");
 const DataSharingContract = require("./../models/DataSharingContract.model");
-// const Service = require("./../models/Service.model");
-// const Dataset = require("./../models/Dataset.model");
-// const TermsOfUse = require("./../models/TermsOfUse.model");
+const Service = require("./../models/Service.model");
+const Dataset = require("./../models/Dataset.model");
+const TermsOfUse = require("./../models/TermsOfUse.model");
 
 exports.home = async (req, res, next) => {
     res.render("home");
@@ -11,88 +11,66 @@ exports.home = async (req, res, next) => {
 
 exports.signContract = async (req, res, next) => {
 
-    let contracts = [];
+    const contracts = await DataSharingContract.find()
+        .populate("serviceImport serviceExport");
 
-    const sampleDatatype = new DataType({
-        name: "Name",
-        description: "The name of the user"
-    });
 
-    const samplePurpose = new Purpose();
-    samplePurpose.name = "Find a job";
-    samplePurpose.description = "Process data to help you find a job.";
+    let populatedContracts = []
 
-    const sampleContract = {
-        id: "sampleContractId001",
-        serviceImport: {
-            name: "Import service name",
-            governance: {
-                registration: "Registration info (Import)",
-                registeredOfficeAddress: "Registered address info (Import)",
-                legalRepresentative: {
-                    name: "Legal representative name (Import)",
-                    email: "Legal representative email (Import)",
-                    profession: "Legal representative profession (Import)",
-                },
-                dataProtectionOfficer: {
-                    name: "Data protection officer name (Import)",
-                    email: "Data protection officer email (Import)",
-                }
+    let populatedDatatypes = [];
+    let populatedConditions = [];
+
+    for (const c of contracts) {
+        
+        for (const ds of c.dataSharing) {
+
+            for (const dt of ds.datatypes) {
+
+                const datatype = await DataType.findById(dt).select("name id");
+                populatedDatatypes.push(datatype);
+
             }
-        },
-        serviceExport: {
-            name: "Export service name",
-            governance: {
-                registration: "Registration info (Export)",
-                registeredOfficeAddress: "Registered address info (Export)",
-                legalRepresentative: {
-                    name: "Legal representative name (Export)",
-                    email: "Legal representative email (Export)",
-                    profession: "Legal representative profession (Export)",
-                },
-                dataProtectionOfficer: {
-                    name: "Data protection officer name (Export)",
-                    email: "Data protection officer email (Export)",
-                }
+
+            ds.datatypes = populatedDatatypes;
+            populatedDatatypes = [];
+    
+            for(const c of ds.conditions) {
+
+                const termsOfUse = await TermsOfUse.findById(c);
+                populatedConditions.push(termsOfUse);
+
             }
-        },
-        dataSharing: [{
-            datatypes: [sampleDatatype],
-            purpose: samplePurpose
-        }],
-    };
 
-    contracts.push(sampleContract);
+            ds.conditions = populatedConditions;
+            populatedConditions = [];
+        }
 
-    res.render("contract-signing", {contracts})
+        populatedContracts.push(c)
+    }
+
+    res.render("contract-signing", {contracts: populatedContracts})
 
 }
 
 exports.generateContract = async (req, res, next) => {
-    let purposes = [];
 
-    const samplePurpose = {
-        id: "purposeId1",
-        name: "Sample purpose name",
-        datatypes: [
-            {
-                name: "Sample datatype name 1",
-                id: "datatypeId1"
-            },
-            {
-                name: "Sample datatype name 2",
-                id: "datatypeId2"
-            }
-        ]
-    }
+    const serviceImport = await Service.findById("611e2d860fa82d2938d3c7bb")
+        .select("name id governance purposes");
+    const serviceExport = await Service.findById("611e2d6d0fa82d2938d3c7b8")
+        .select("name id governance");;
 
-    purposes.push(samplePurpose);
+    const purpose = await Purpose.findById(serviceImport.purposes[0])
+        .select("name id description");
+
+    const datatypes = await DataType.find({provenance: serviceExport.id})
+        .select("name id description");
+
+    const purposes = [purpose]
 
     res.render("contract-generation", {
+        serviceImport,
+        serviceExport,
         purposes,
-        serviceImport: "Import service name",
-        serviceExport: "Export service name",
-        serviceImportId: "importServiceId",
-        serviceExportId: "exportServiceId",
+        datatypes
     });
 }

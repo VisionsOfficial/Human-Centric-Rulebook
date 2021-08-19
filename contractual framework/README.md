@@ -55,7 +55,7 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 | serviceName | [required] A `string` representing the name of your service.
 | password | [required] A `string` representing the password for your service.
 
-#### [public] GET /api/services/info/
+#### [private] GET /api/services/info/
 
 > Get your Service information
 
@@ -170,6 +170,16 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 
 > Get all of your Service's Datasets
 
+#### [private] GET /api/datasets/{datasetId}
+
+> Get info on one Dataset
+
+##### Path parameters
+
+| Name | Description
+|-|-
+| datasetId | [required] A `string` representing the ID of the dataset
+
 #### [private] POST /api/datasets/
 
 > Creates a new Dataset
@@ -211,6 +221,16 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 
 > Get all of your Service's Terms of Use
 
+#### [private] GET /api/termsofuse/{termsofuseId}
+
+> Get info on one Dataset
+
+##### Path parameters
+
+| Name | Description
+|-|-
+| termsofuseId | [required] A `string` representing the ID of the Terms of use
+
 #### [private] POST /api/termsofuse/
 
 > Creates new Terms of Use
@@ -248,7 +268,7 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 
 #### [private] DELETE /api/termsofuse/
 
-> Creates new Terms of Use
+> Deletes Terms of Use
 
 ##### Body fields
 

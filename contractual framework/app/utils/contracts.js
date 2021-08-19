@@ -25,8 +25,8 @@ module.exports = {
         
             // Check for existing data sharing contract
             const existingContract = await DataSharingContract.findOne({$and: [
-                {"serviceImport.id": serviceImportId},
-                {"serviceExport.id": serviceExportId}
+                {"serviceImport": serviceImportId},
+                {"serviceExport": serviceExportId}
             ]});
         
             if(existingContract) {
@@ -51,8 +51,8 @@ module.exports = {
                         let dataset = await Dataset.findOne({datatypes: dt.id});
 
                         if(dataset) {
-                            if(!existingContract.dataSharing[index].conditions.includes(dataset.termsOfUse)) {
-                                existingContract.dataSharing[index].conditions.push(dataset.termsOfUse);
+                            if(!existingContract.dataSharing[index].conditions.includes(dataset.termsOfUse.toString())) {
+                                existingContract.dataSharing[index].conditions.push(dataset.termsOfUse.toString());
                             }
                         }
                     }
@@ -75,8 +75,8 @@ module.exports = {
                         let dataset = await Dataset.findOne({datatypes: dt.id});
 
                         if(dataset) {
-                            if(!newDataSharing.conditions.includes(dataset.termsOfUse)) {
-                                newDataSharing.conditions.push(dataset.termsOfUse);
+                            if(!newDataSharing.conditions.includes(dataset.termsOfUse.toString())) {
+                                newDataSharing.conditions.push(dataset.termsOfUse.toString());
                             }
                         }
                     }
@@ -86,7 +86,7 @@ module.exports = {
         
                 await existingContract.save();
 
-                return contract;
+                return existingContract;
         
             } else {
 
@@ -112,8 +112,8 @@ module.exports = {
                     let dataset = await Dataset.findOne({datatypes: dt.id});
 
                     if(dataset) {
-                        if(!newDataSharing.conditions.includes(dataset.termsOfUse)) {
-                            newDataSharing.conditions.push(dataset.termsOfUse);
+                        if(!newDataSharing.conditions.includes(dataset.termsOfUse.toString())) {
+                            newDataSharing.conditions.push(dataset.termsOfUse.toString());
                         }
                     }
                 }

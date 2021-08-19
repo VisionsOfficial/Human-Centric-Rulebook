@@ -21,7 +21,7 @@ async function eth_sign(contractId){
 function uploadClientSignature(contractId, hash, signature) {
 
   $.post({
-      url: "/blockchain/contracts/"+contractId+"/sign/client",
+      url: "/api/blockchain/contracts/"+contractId+"/sign/client",
       data: JSON.stringify({
           hash,
           signature
@@ -32,13 +32,8 @@ function uploadClientSignature(contractId, hash, signature) {
           console.log(response);
       },
       error(jqXHR, status, err) {
-          console.log(jqXHR);
-          console.log(status);
-          console.log(err);
+          console.log(jqXHR.responseJSON[0]);
+          alert(jqXHR.responseJSON[0].message)
       }
   });
-}
-
-function uploadProviderSignature() {
-
 }
