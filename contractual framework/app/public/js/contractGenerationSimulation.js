@@ -88,4 +88,8 @@ const simulateContract = (contract) => {
     document.getElementById("sign").addEventListener('click', function() {
         eth_sign(contract._id)
     })
+
+    document.getElementById("view").addEventListener('click', function() {
+        location.href = "/contracts/view/"+contract._id;
+    })
 }

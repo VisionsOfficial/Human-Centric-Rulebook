@@ -74,3 +74,38 @@ exports.generateContract = async (req, res, next) => {
         datatypes
     });
 }
+
+exports.viewContractAsText = async (req, res, next) => {
+
+    const contract = await DataSharingContract.findById(req.params.contractId)
+        .populate("serviceImport serviceExport");
+
+    let populatedDatatypes = [];
+    let populatedConditions = [];
+
+    for (const ds of contract.dataSharing) {
+
+        for (const dt of ds.datatypes) {
+
+            const datatype = await DataType.findById(dt).select("name id description");
+            populatedDatatypes.push(datatype);
+
+        }
+
+        ds.datatypes = populatedDatatypes;
+        populatedDatatypes = [];
+
+        for(const c of ds.conditions) {
+
+            const termsOfUse = await TermsOfUse.findById(c);
+            populatedConditions.push(termsOfUse);
+
+        }
+
+        ds.conditions = populatedConditions;
+        populatedConditions = [];
+    }
+
+    res.render("contract-text", {contract})
+
+}

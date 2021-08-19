@@ -33,7 +33,7 @@ exports.uploadClientSignature = async (req, res, next) => {
     // [Required] a string representing a signature of the signed message
     const signature = req.body.signature;
 
-    const token = auth.generateBlockchainToken(contractId);
+    const token = auth.generateBlockchainToken(contractId, true);
 
     axios({
         method: 'POST',
@@ -68,7 +68,7 @@ exports.uploadProviderSignature = async (req, res, next) => {
     // [Required] a string representing a signature of the signed message
     const signature = req.body.signature;
 
-    const token = auth.generateBlockchainToken(contractId);
+    const token = auth.generateBlockchainToken(contractId, false);
 
     axios({
         method: 'POST',

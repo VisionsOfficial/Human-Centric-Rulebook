@@ -29,7 +29,7 @@ function uploadClientSignature(contractId, hash, signature) {
       dataType: 'json',
       contentType: 'application/json',
       success(response) {
-          console.log(response);
+          alert("Contract has now been signed by both parties and stored on the blockchain.")
       },
       error(jqXHR, status, err) {
           console.log(jqXHR.responseJSON[0]);
