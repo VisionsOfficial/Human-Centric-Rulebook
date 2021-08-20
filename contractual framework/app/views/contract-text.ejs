@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head') %>
+    <title>Contract as Text</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <div class="container">
+
+
+        <h4>Data Provider</h4>
+
+        <p><b class="text-primary"><%= contract.serviceExport.name %></b> acts as the Data Provider</p>
+
+
+        <h4>Schedules</h4>
+
+        <table class="table table-striped">
+            <thead>
+                <th>Schedule</th>
+                <th>Description</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <% contract.dataSharing.forEach(item => { %>
+                            <ul>
+                                <% item.datatypes.forEach(datatype => { %>
+                                    <li><b class="text-primary"><%= datatype.name %></b></li>
+                                    <li><b class="text-primary"><%= datatype.description %></b></li>
+                                    <hr>
+                                <% }) %>
+                            </ul>
+                        <% }) %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <h4>Background</h4>
+    
+        <p>The purpose of this Dataset Terms of Use is to define the Data that the Data Provider makes available through the Network and to set out the terms and conditions for the use of such Data</p>
+    
+
+        <h4>Definitions</h4>
+
+        <p>As used in this Dataset Terms of Use, including the Schedules hereof, unless expressly otherwise stated or evident in the context, the following terms and expressions have the following meanings, the singular (where appropriate) includes the plural and vice versa, and references to Schedules and Sections mean the Schedules and Sections of this Dataset Terms of Use:</p>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>"Data Provider"</td>
+                    <td>
+                        means the entity defined under section “Data Provider” above. 
+                    </td>
+                </tr>
+                <tr>
+                    <td>"User"</td>
+                    <td>
+                        means any End User, Service Provider, Operator or Third Party End User who processes any Data that is made available by the Data Provider under these Dataset Terms of Use.  
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>"Connector"</td>
+                    <td>
+                        means software implemented as an IDS Connector as defined in the IDS Reference Architecture Model by International Data Space Association, and installed by Party thereby providing technical access to the Data Network.
+                    </td>
+                </tr>
+                <tr>
+                    <td>"Trusted Connector"</td>
+                    <td>
+                        as defined in the IDS Reference Architecture Model by International Data Space Association.
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+
+        <p>Other terms and expressions have the meanings defined in the General Terms and Conditions.</p>
+    
+    
+        <h4>Applicatbility and Scope</h4>
+        <p>
+            These Dataset Terms of Use apply to the Dataset(s) provided by the Data Provider under the Constitutive Agreement dated <span class="text-primary"><b><%- contract.createdAt.toDateString() %> </b></span>  / as acceded by the Data Provider under the Accession Agreement dated <span class="text-primary"><b><%- contract.createdAt.toDateString() %> </b></span> and as further defined in Schedule 1. <br/>
+    
+            By using any such Data, the User undertakes to use the Data in compliance with these Dataset Terms of Use. <br/>
+    
+            In the event that a discrepancy arises between the Constitutive Agreement or any of its appendices and these Dataset Terms of Use, the Constitutive Agreement will prevail. Furthermore, in the event that a discrepancy arises between these Dataset Terms of Use and any of its Schedules, these Dataset Terms of Use will prevail. 
+        </p>
+    
+    
+    
+        <h4>Data</h4>
+        <p>
+            The Data as well as its location and method of distribution are defined in the Dataset Description(s) (Schedule 1). <br/>
+    
+            The data is made available under the provisions of the Constitutive Agreement through the protocol provided by the Operator and at the endpoint published through the Operator.
+            <br/>
+    
+            The Data Provider represents and warrants that it has the right to make the Data available and that the data recipients are entitled to use the Data as further defined in the Constitutive Agreement and these Dataset Terms of Use. 
+        </p>
+    
+    
+    
+        <h4>Right to use the data</h4>
+    
+        <p>
+            Subject to these Dataset Terms of Use, the Data Provider hereby grants the User a non-exclusive right to the Data to :
+        </p>
+        <ol>
+            <li>Receive, process and reproduce</li>
+            <li>Refine and modify and</li>
+            <li>[redistribute] the Data to Third Party End Users provided that the Service Provider includes in its agreement with any Third Party End User the terms and conditions of this Dataset Terms of Use / clauses […] of this Dataset Terms of Use </li>
+        </ol>
+    
+        <p>
+            in [Finland/the European Union and the European Economic Area/globally].
+            <br/>
+    
+            The User shall declare the purpose for which it uses the data to Data Provider and to Operator
+    
+            <br/>
+            The User is entitled to utilise software robots or other forms and applications of robotic process automation or machine learning or artificial intelligence when processing Data provided that the applicable confidentiality obligations are respected. In accordance with the aforementioned, the User has the right to learn from the Data and to use any professional skills and experience acquired when processing the Data.
+        </p>
+
+        <h4>Restrictions on the processing of Data</h4>
+
+        <div>
+            The Data may not be processed:
+            <br/>
+
+            <ol>
+                <% contract.dataSharing.forEach(item => { %>
+                    <% if (item.conditions.length > 0) { %>
+                        <% item.conditions.forEach(condition => { %>
+                            <li><b class="text-primary"><%= condition.restrictions %></b></li>
+                        <% }) %>
+                    <% } %>
+                <% }) %>
+            </ol>
+
+            <br/>
+            The User has the right to use the data only for the purpose it has declared.
+            <br>
+            The User may not access Data prior to agreeing to these Dataset Terms of Use.
+
+        </div>
+
+
+        <h4>Fees and payment terms</h4>
+
+        <p>The use of Data is subject to fees and charges, as further defined in Schedule 1</p>
+
+
+        <h4>Reporting</h4>
+
+        <p>The use of Data is subject to the following specific reporting obligations :</p>
+
+        <ol>
+            <% contract.dataSharing.forEach(item => { %>
+                <% if (item.conditions.length > 0) { %>
+                    <% item.conditions.forEach(condition => { %>
+                        <li><b class="text-primary"><%= condition.reporting %></b></li>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        </ol>
+
+
+        <h4>Audit</h4>
+
+        <p>The use of Data is subject to the following specific audit obligations :</p>
+
+        <ol>
+            <% contract.dataSharing.forEach(item => { %>
+                <% if (item.conditions.length > 0) { %>
+                    <% item.conditions.forEach(condition => { %>
+                        <li><b class="text-primary"><%= condition.audit %></b></li>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        </ol>
+
+
+        <h4>Data Security</h4>
+
+        <p>The use of Data is subject to the following specific data security obligations :</p>
+
+        <ol>
+            <% contract.dataSharing.forEach(item => { %>
+                <% if (item.conditions.length > 0) { %>
+                    <% item.conditions.forEach(condition => { %>
+                        <li><b class="text-primary"><%= condition.dataSecurity %></b></li>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        </ol>
+
+
+        <h4>Confidential Information</h4>
+
+        <p>The Parties acknowledge that the Dataset, as defined in Schedule [1], includes Confidential Information and that its use and processing is subject to:</p>
+
+        <ol>
+            <% contract.dataSharing.forEach(item => { %>
+                <% if (item.conditions.length > 0) { %>
+                    <% item.conditions.forEach(condition => { %>
+                        <li><b class="text-primary"><%= condition.confidentialInformation %></b></li>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        </ol>
+
+
+
+        <h4>Data Protection</h4>
+
+        <p>Data includes personal data, and its reception and processing is subject to the following:</p>
+
+        <ol>
+            <% contract.dataSharing.forEach(item => { %>
+                <% if (item.conditions.length > 0) { %>
+                    <% item.conditions.forEach(condition => { %>
+                        <li><b class="text-primary"><%= condition.dataProtection %></b></li>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        </ol>
+
+
+
+        <h4>Intellectual Property Rights</h4>
+
+        <ol>
+            <% contract.dataSharing.forEach(item => { %>
+                <% if (item.conditions.length > 0) { %>
+                    <% item.conditions.forEach(condition => { %>
+                        <li><b class="text-primary"><%= condition.intellectualPropertyRights %></b></li>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        </ol>
+
+
+        <h4>Disclaimer and Limitation of Liability</h4>
+
+        <p>Unless otherwise expressed in these Terms, the Data Provider offers the data "as is" and “as available” with no warranty of any kind. The risk inherent in the suitability of the data for the User’s purposes remains solely with the User. Notwithstanding the above, this does not limit the Data Provider’s liability under clauses 11.3–11.5 of the General Terms and Conditions [and clause(s) of the Constitutive Agreement</p>
+
+
+        <h4>Effects of Termination</h4>
+
+        <p>Where a Member’s membership in the Network is terminated as a consequence of the Member’s material breach of the Constitutive Agreement, the breaching Member’s right to use the Data will end at the date of the termination. The breaching Member must cease to use the Data and, upon request by any Party, verifiably return or destroy Data and any copies of Confidential Information including copies thereof. However, the breaching Member is entitled to retain the Data as required by the applicable law or competent authorities provided that the breaching Member notifies the Data Provider of such a data retention obligation by the date of termination</p>
+
+
+        <h4>Entry into force and Application</h4>
+
+        <p>
+            This right to use the Data will enter into force when the User accesses the Data and apply until the User stops processing the Data.
+        </p>
+
+
+
+        <h4>Amendments</h4>
+
+        <p>The Data Provider may change these terms and conditions at any time by notifying all other Members to the Network of such change in writing. The modified terms will enter into force within fourteen (14) days after the Data Provider has notified the other Members of the amendments made to these terms and conditions, but the amendments will not apply to any Data received by the Users prior to the entry into force of the amendments.</p>
+
+
+
+        <h4>Other Terms</h4>
+
+        <p>Operator shall record and check the User’s declaration of the purpose and the agreement to the Dataset Terms of Use before providing access to the data.</p>
+
+
+        <ol>
+            <% contract.dataSharing.forEach(item => { %>
+                <% if (item.conditions.length > 0) { %>
+                    <% item.conditions.forEach(condition => { %>
+                        <% if (condition.otherTerms !== "") { %>
+                            <li><b class="text-primary"><%= condition.otherTerms %></b></li>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        </ol>
+
+
+
+        <h4>Applicable Laws and Dispuste Resolution</h4>
+
+        <p>
+            These Dataset Terms of Use are governed by and constructed in accordance with the laws of Finland, without regard to its principles of private international law and conflict of laws rules. <br/>
+            Any dispute, controversy or claim arising out of or in relation to the Data shared under these Dataset Terms of Use, or the breach, termination or validity thereof, shall be finally settled by arbitration in accordance with the Arbitration Rules of the Finland Chamber of Commerce. The number of arbitrators shall be one, the seat of arbitration shall be Helsinki, Finland and the language of the arbitration shall be English.]
+
+        </p>
+
+    </div>
+
+
+
+</body>
+</html>
