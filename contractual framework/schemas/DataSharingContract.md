@@ -6,6 +6,8 @@ Property | Expected Type | Description
 ---------|---------------|------------
 `serviceImport` | Service | The service acting as Data User, importing the data
 `serviceExport` | Service | The service acting as Data Provider, exporting the data
+`ConstitutiveAgreement` | ConstitutiveAgreement | The Constitutive Agreement under which this contract applies
+`AccessionAgreement` | Service | The Accession Agreement
 `dataSharing` | Object[] | What the contract agrees upon
 `dataSharing.purpose` | Purpose | The Purpose for which the data should be used in this contract
 `dataSharing.datatypes` | DataType[] | The list of DataTypes involved in the contract
