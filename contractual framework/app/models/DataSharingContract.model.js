@@ -15,6 +15,16 @@ const schema = new Schema({
     serviceExport: {type: Schema.ObjectId, ref: "Service"},
 
     /**
+     * Constitutive Agreement
+     */
+    constitutiveAgreement: {type: Schema.ObjectId, ref: "ConstitutiveAgreement"},
+
+    /**
+     * Accession Agreement
+     */
+    accessionAgreement: {type: Schema.ObjectId, ref: "AccessionAgreement"},
+
+    /**
      * Specifications of the data and conditions involved in this contract
      */
     dataSharing: [{
@@ -25,7 +35,12 @@ const schema = new Schema({
         datatypes: [{type: Schema.ObjectId, ref: "DataType"}],
         processor: {type: Schema.ObjectId, ref: "Service"},
         conditions: [{type: Schema.ObjectId, ref: "TermsOfUse"}],
-    }]
+    }],
+
+    /**
+     * Created at
+     */
+    createdAt: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model("DataSharingContract", schema);

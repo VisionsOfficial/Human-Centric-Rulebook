@@ -144,5 +144,36 @@ module.exports = {
             governance: service.governance,
             endpoints: service.endpoints,
         }
+    },
+
+    /**
+     * Populates a contract with necessary information to show on the frontend
+     * @param {string} contractId The contract ID
+     * @returns The populated contract
+     */
+    populateContract: async (contractId) => {
+        let populatedContract = await DataSharingContract.findById(contractId)
+                .populate("serviceImport serviceExport")
+
+        let populatedDatatypes = [];
+        let populatedConditions = [];
+
+        for (const ds of populatedContract.dataSharing) {
+            for (const dt of ds.datatypes) {
+                const datatype = await DataType.findById(dt).select("name id");
+                populatedDatatypes.push(datatype);
+            }
+            ds.datatypes = populatedDatatypes;
+            populatedDatatypes = [];
+
+            for(const c of ds.conditions) {
+                const termsOfUse = await TermsOfUse.findById(c);
+                populatedConditions.push(termsOfUse);
+            }
+            ds.conditions = populatedConditions;
+            populatedConditions = [];
+        }
+
+        return populatedContract;
     }
 }

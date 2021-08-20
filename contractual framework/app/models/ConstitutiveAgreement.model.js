@@ -93,7 +93,12 @@ const schema = new Schema({
          * When the contract was created
          */
         on: {type: Date, default: Date.now}
-    }
+    },
+
+    /**
+     * Created at
+     */
+     createdAt: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model("ConstitutiveAgreement", schema);
