@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head') %>
+    <title>DataSharingContract example</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <div class="container">
+        <h5>On this view, the <span class="text-primary">Data User</span> can view the contracts and pending contracts and sign them</h5>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                  <div class="py-4">
+                      <table class="table table-striped">
+                      <thead>
+                          <tr>
+                          <th>Data user</th>
+                          <th>Data provider</th>
+                          <th>Exchanges</th>
+                          <th>Contract</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <% if(contracts.length==0){ %>
+                              <tr>
+                                  <td colspan="5">
+                                      <div class="alert alert-info text-center">No contracts</div>
+                                  </td>
+                              </tr>
+                          <% }  %>
+                          <% contracts.forEach((contract, index) => { %>
+                          <tr>
+                              <td><%= contract.serviceImport.name %></td>
+                              <td><%= contract.serviceExport.name %></td>
+                              <td><%= contract.dataSharing.length %></td>
+                              <td>
+                                  <button class="btn btn-primary" data-toggle="modal" data-target="#modalServices<%= index %>">
+                                      <i class="fas fa-list-ul"></i>
+                                  </button>
+                              </td>
+                          </tr>
+                          <% }) %>
+                      </tbody>
+                  </table>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <% contracts.forEach((contract, index) => { %>
+        <div class="modal fade"  tabindex="-1" role="dialog"  aria-hidden="true" id="modalServices<%= index %>">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Data Sharing Contract information</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Data user</h4>
+                        <h5 class="text-primary"><%= contract.serviceImport.name %></h5>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td><b>Registration</b></td>
+                                <td colspan="2"><%= contract.serviceImport.governance.registration != "" ? contract.serviceImport.governance.registration : "" %></td>
+                            </tr>
+                            <tr>
+                                <td><b>Registered office address</b></td>
+                                <td colspan="2"><%= contract.serviceImport.governance.registeredOfficeAddress != "" ? contract.serviceImport.governance.registeredOfficeAddress : "" %></td>
+                            </tr>
+                            <tr>
+                                <td><b>Legal representative</b></td>
+                                <td><%= contract.serviceImport.governance.legalRepresentative.name != "" ? contract.serviceImport.governance.legalRepresentative.name : "" %></td>
+                                <td><%= contract.serviceImport.governance.legalRepresentative.email != "" ? contract.serviceImport.governance.legalRepresentative.email : "" %></td>
+                            </tr>
+                            <tr>
+                                <td><b>Data protection officer</b></td>
+                                <td><%= contract.serviceImport.governance.dataProtectionOfficer.name != "" ? contract.serviceImport.governance.dataProtectionOfficer.name : "" %></td>
+                                <td><%= contract.serviceImport.governance.dataProtectionOfficer.email != "" ? contract.serviceImport.governance.dataProtectionOfficer.email : "" %></td>
+                            </tr>
+                        </table>
+                        <h4>Data provider</h4>
+                        <h5 class="text-primary"><%= contract.serviceExport.name %></h5>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td><b>Registration</b></td>
+                                <td colspan="2"><%= contract.serviceExport.governance.registration != "" ? contract.serviceExport.governance.registration : "" %></td>
+                            </tr>
+                            <tr>
+                                <td><b>Registered office address</b></td>
+                                <td colspan="2"><%= contract.serviceExport.governance.registeredOfficeAddress != "" ? contract.serviceExport.governance.registeredOfficeAddress : "" %></td>
+                            </tr>
+                            <tr>
+                                <td><b>Legal representative</b></td>
+                                <td><%= contract.serviceExport.governance.legalRepresentative.name != "" ? contract.serviceExport.governance.legalRepresentative.name : "" %></td>
+                                <td><%= contract.serviceExport.governance.legalRepresentative.email != "" ? contract.serviceExport.governance.legalRepresentative.email : "" %></td>
+                            </tr>
+                            <tr>
+                                <td><b>Data protection officer</b></td>
+                                <td><%= contract.serviceExport.governance.dataProtectionOfficer.name != "" ? contract.serviceExport.governance.dataProtectionOfficer.name : "" %></td>
+                                <td><%= contract.serviceExport.governance.dataProtectionOfficer.email != "" ? contract.serviceExport.governance.dataProtectionOfficer.email : "" %></td>
+                            </tr>
+                        </table>
+                        <hr>
+
+                        <h4 class="text-center my-2" >Agreements</h5>
+
+                        <% contract.dataSharing.forEach(item => { %>
+                            <h4>Purpose</h4>
+                            <h5 class="text-primary"><%= item.purpose.name %></h5>
+                            <hr>
+                            <h4>Datatypes</h4>
+                            <table class="table table-striped">
+                                <% item.datatypes.forEach(datatype => { %>
+                                    <td class="text-primary"><%= datatype.name %></td>
+                                <% }) %>
+                            </table>
+                            <h4>Conditions</h4>
+                            <table class="table table-striped">
+                                <% item.conditions.forEach(condition => { %>
+                                    <tr>
+                                        <td><b>Audit</b></td>
+                                        <td><%-condition.audit%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Confidential Information</b></td>
+                                        <td><%-condition.confidentialInformation%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Data protection</b></td>
+                                        <td><%-condition.dataProtection%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Intellectual Property Rights</b></td>
+                                        <td><%-condition.intellectualPropertyRights%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Reporting</b></td>
+                                        <td><%-condition.reporting%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Restrictions</b></td>
+                                        <td><%-condition.restrictions%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Other Terms</b></td>
+                                        <td><%-condition.otherTerms%></td>
+                                    </tr>
+                                <% }) %>
+                            </table>
+                        <% }) %>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">
+                        <i class="fas fa-times text-danger mr-2"></i>Close</button>
+
+                        <button class="btn btn-primary" onclick="eth_sign('<%= contract.id %>')">Sign</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+
+    <div class="container">
+        <b>Example signature</b>
+        <p id="console"></p>
+    </div>
+
+    <script src="/js/client.js"></script>
+</body>
