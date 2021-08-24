@@ -115,6 +115,10 @@ Most of the API routes restrict public access and require authentication. Authen
 | hash | [required] A `string` representing a message to be signed encoded as SHA3.
 | signature | [required] A `string` representing a signature of the signed message.
 
+#### [private] POST /contracts/:contractId/revoke
+
+> Revokes an existing contract.
+
 #### [private] GET /contracts/:contractId/verify
 
 > Verifies the authenticity of a contract.
