@@ -50,7 +50,7 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 
 #### [private] GET /api/termsofuse/{termsofuseId}
 
-> Get info on one Dataset
+> Get info on one Terms of Use
 
 ##### Path parameters
 
@@ -117,3 +117,17 @@ To retrieve a JWT token for your Service, a post request must be made to the fol
 | serviceExportId | [required] A `string` representing the ID of the service acting as data provider.
 | purposeId | [required] A `string` representing the ID of the purpose involved in the data sharing contract
 | datatypes | [required] An array of `string` representing the DataType IDs involved in the data sharing contract for the specified purpose
+
+#### [private] GET /api/contracts
+
+> Get info on all your contracts
+
+#### [private] GET /api/contracts/{contractId}
+
+> Get info on one Contract
+
+##### Path parameters
+
+| Name | Description
+|-|-
+| contractId | [required] A `string` representing the ID of the contract

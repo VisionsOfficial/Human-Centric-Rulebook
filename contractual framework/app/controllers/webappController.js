@@ -9,6 +9,9 @@ exports.home = async (req, res, next) => {
     res.render("home");
 }
 
+/**
+ * Renders the contract signing example view
+ */
 exports.signContract = async (req, res, next) => {
 
     const contracts = await DataSharingContract.find()
@@ -52,6 +55,9 @@ exports.signContract = async (req, res, next) => {
 
 }
 
+/**
+ * Renders the contract generation example view
+ */
 exports.generateContract = async (req, res, next) => {
 
     const serviceImport = await Service.findById("611e2d860fa82d2938d3c7bb")
@@ -75,6 +81,9 @@ exports.generateContract = async (req, res, next) => {
     });
 }
 
+/**
+ * Renders the contract as text example view
+ */
 exports.viewContractAsText = async (req, res, next) => {
 
     const contract = await DataSharingContract.findById(req.params.contractId)
