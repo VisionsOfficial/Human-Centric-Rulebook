@@ -112,39 +112,33 @@ Main Application --> Blockchain API : Perform arbitrary request
 
 ##### Path parameters
 
-// TODO
+| Name | Description
+|-|-
+| skip | An `integer` defining how many documents should be skipped in the result.
+| limit | An `integer` defining a maximum number of returned documents.
 
-##### Possible errors
+#### [private] POST /contracts/:contractId/sign/:party
 
-// TODO
+> Uploads client's signature. This route requires a JWT token containing the `id` of a contract and a wallet `address` of a user that signed the document.
 
-#### [private] POST /contracts/:contractId/sign/client
+##### Path parameters
 
-> Uploads client's signature. This route requires a JWT token containing the `id` of a contract and a wallet `address` of a user.
+| Name | Description
+|-|-
+| contractId | An `integer` representing a contract id.
+| party | A `string` defining a signer type (`client` or `provider`).
 
 ##### Body fields
 
 | Name | Description
 |-|-
-| hash | [required] A `string` representing a message to be signed encoded as SHA3.
-| signature | [required] A `string` representing a signature of the signed message.
-
-#### [private] POST /contracts/:contractId/sign/provider
-
-> Uploads provider's signature. This route requires a JWT token containing the `id` of a contract and a wallet `address` of a user.
-
-##### Body fields
-
-| Name | Description
-|-|-
-| hash | [required] A `string` representing a message to be signed encoded as SHA3.
-| signature | [required] A `string` representing a signature of the signed message.
+| hash | [required] A `SHA3(string)` representing a message that was signed.
+| signature | [required] A `string` representing a signature of the message.
 
 #### [private] POST /contracts/:contractId/revoke
 
-> Revokes an existing contract.
+> Revokes an existing contract in the database.
 
 #### [private] GET /contracts/:contractId/verify
 
 > Verifies the authenticity of a contract.
-
