@@ -1,0 +1,48 @@
+service: dapsi-blockchain
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  # region: eu-central-1
+  stage: ${opt:stage, 'test'}
+  environment:
+    APP_ENV: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):APP_ENV}
+    APP_SECRET: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):APP_SECRET}
+    MONGO_DB: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):MONGO_DB}
+    MONGO_POOL: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):MONGO_POOL}
+    MONGO_URL: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):MONGO_URL}
+    PAGE_DEFAULT_LIMIT: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):PAGE_DEFAULT_LIMIT}
+    PAGE_MAX_LIMIT: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):PAGE_MAX_LIMIT}
+    PRIVATE_KEY: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):PRIVATE_KEY}
+    CONTRACT_ADDRESS: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):CONTRACT_ADDRESS}
+    ETH_ACCESS_KEY_ID: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):ETH_ACCESS_KEY_ID}
+    ETH_SECRET_ACCESS_KEY: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):ETH_SECRET_ACCESS_KEY}
+    ETH_RPC: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):ETH_RPC}
+
+plugins:
+- serverless-domain-manager
+
+custom:
+  customDomain:
+    domainName: ${file(./.serverless-env/${opt:stage, self:provider.stage, 'test'}.json):DOMAIN}
+    basePath: ""
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    certificateName: "nibbstack.com"
+    autoDomain: true
+
+functions:
+  # Start Ethereum gateway.
+  rest:
+    handler: dist/scripts/start-rest-lambda.handler
+    events:
+    - http: ANY /
+    - http: 'ANY {proxy+}'
+    timeout: 60 # api gateway limit is 30
+  # Start transaction resolver.
+  transaction-resolver:
+    reservedConcurrency: 1
+    handler: dist/scripts/start-transaction-resolver-lambda.handler
+    events:
+    - schedule: rate(1 minute)
+    timeout: 30 # api gateway limit is 30

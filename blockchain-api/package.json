@@ -1,0 +1,87 @@
+{
+  "name": "dapsi-blockchain",
+  "private": true,
+  "version": "0.0.1",
+  "description": "DAPSI blockchain gateway",
+  "license": "Private",
+  "main": "./dist/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "npm run clear && tsc",
+    "clear": "rm -Rf ./dist",
+    "downgrade": "npx ts-node ./src/scripts/downgrade.ts",
+    "print:env": "npx ts-node ./src/scripts/print-env.ts",
+    "print:routes": "npx ts-node ./src/scripts/print-routes.ts",
+    "seed": "npx ts-node ./src/scripts/seed.ts",
+    "start:rest": "npx ts-node ./src/scripts/start-rest.ts",
+    "start": "npm run start:rest",
+    "generate:token": "npx ts-node ./src/scripts/generate-token.ts",
+    "generate:revoke-token": "npx ts-node ./src/scripts/generate-revoke-token.ts",
+    "dev:resolve-transactions": "npx ts-node ./src/scripts/start-transaction-resolver.ts",
+    "test": "npx nyc npx hayspec test",
+    "upgrade": "npx ts-node ./src/scripts/upgrade.ts",
+    "deploy": "sls deploy --aws-profile dapsi",
+    "deploy:setup": "sls config credentials --provider aws --key $KEY --secret $SECRET --profile dapsi",
+    "deploy:remove": "sls remove --aws-profile dapsi",
+    "serve:client": "serve ./client",
+    "generate-contracts": "npx web3x-codegen"
+  },
+  "engines": {
+    "node": ">= 11"
+  },
+  "hayspec": {
+    "require": [
+      "ts-node/register"
+    ],
+    "match": [
+      "./src/tests/**/*.test.ts"
+    ]
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "exclude": [
+      "src/tests"
+    ]
+  },
+  "dependencies": {
+    "@0xcert/ethereum-utils": "^2.0.3",
+    "@rawmodel/core": "^3.3.4",
+    "@rawmodel/handlers": "^3.3.4",
+    "@rawmodel/parsers": "^3.3.4",
+    "@rawmodel/utils": "^3.3.4",
+    "@rawmodel/validators": "^3.3.4",
+    "aws-serverless-express": "^3.4.0",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ethers": "5.4.1",
+    "express": "5.0.0-alpha.8",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.5",
+    "mongodb-builder": "^0.6.1",
+    "ngramable": "^0.2.1",
+    "serve": "^12.0.0",
+    "web3x": "^4.0.6",
+    "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "@hayspec/cli": "^0.10.0",
+    "@hayspec/spec": "^0.10.0",
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.8",
+    "@types/mongodb": "^3.5.27",
+    "nyc": "^15.1.0",
+    "serverless": "^1.82.0",
+    "serverless-domain-manager": "^5.0.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2",
+    "web3x-codegen": "^4.0.6"
+  }
+}
