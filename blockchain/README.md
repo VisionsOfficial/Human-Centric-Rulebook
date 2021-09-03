@@ -1,8 +1,23 @@
-# REST
+# Blockchain API
+
+This API represents a blockchain gateway and allows for storing and verifying signed documents using the Ethereum blockchain.
+
+The main application should use this API as a dedicated micro service. The application should controll the access to this gateway and provide trusted information, where the this API simply executes all valid requests and provides blockchain related data.
+
+```sequence
+Title: Blockchain API Overview
+User -> Main Application: Arbitrary user request
+User --> Blockchain API: Authenticated user requests
+Main Application -> Blockchain API: Authenticated request
+Blockchain API -> Ethereum Blockchain : Manage blockchain transactions
+Ethereum Blockchain -> Blockchain API : Raw blockchain data
+Blockchain API --> Main Application : Parsed blockchain information
+Blockchain API --> User : Parsed blockchain information
+```
 
 ## Endpoints
 
-The blockchain API is language independent software as a service with a RESTful API endpoint built for developers. Currently we only use the `test` environment which uses Ethereum Rinkeby network.
+The blockchain API is language independent software as a service with a RESTful API endpoint built for developers. Currently we use the `test` environment which uses Ethereum Rinkeby network.
 
 * **Test**: https://y5u9ap15bi.execute-api.us-east-1.amazonaws.com/test/
 
@@ -75,7 +90,17 @@ Below is a complete list of global handled errors.
 
 ## Authentication
 
-Most of the API routes restrict public access and require authentication. Authenticated requests must include a HTTP header `Authorization` holding a JWT token. The JWT must be created using the `subject: auth`.
+Most of the API routes restrict public access and require authentication. Authenticated requests must include an HTTP header `Authorization` holding an authentication token (JWT). Since the JWT is used as a secure way of exchanging data, each route has its own rules.
+
+The authentication JWT should be created by the main application which shares the same application secret. On each request to this API, the main application will generate a JWT according to route's requirements and add it as a request header.
+
+```sequence
+Title: Authentication
+User -> Main Application : Request authentication token
+Main Application -> User : New authentication token
+User --> Blockchain API : Perform arbitrary request
+Main Application --> Blockchain API : Perform arbitrary request
+```
 
 ## Routes
 
@@ -122,3 +147,4 @@ Most of the API routes restrict public access and require authentication. Authen
 #### [private] GET /contracts/:contractId/verify
 
 > Verifies the authenticity of a contract.
+
