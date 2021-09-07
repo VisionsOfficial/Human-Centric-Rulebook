@@ -119,13 +119,13 @@ Main Application --> Blockchain API : Perform arbitrary request
 
 #### [private] POST /contracts/:contractId/sign/:party
 
-> Uploads client's signature. This route requires a JWT token containing the `id` of a contract and a wallet `address` of a user that signed the document.
+> Uploads client's signature. This route requires a JWT token with `auth` subject, containing the `id` of a contract and a wallet `address` of a user that signed the document.
 
 ##### Path parameters
 
 | Name | Description
 |-|-
-| contractId | An `integer` representing a contract id.
+| contractId | A `hex` number representing a contract id.
 | party | A `string` defining a signer type (`client` or `provider`).
 
 ##### Body fields
@@ -137,8 +137,20 @@ Main Application --> Blockchain API : Perform arbitrary request
 
 #### [private] POST /contracts/:contractId/revoke
 
-> Revokes an existing contract in the database.
+> Revokes an existing contract in the database. This route requires a JWT token with `revoke` subject, containing the `id` of a contract.
+
+##### Path parameters
+
+| Name | Description
+|-|-
+| contractId | A `hex` number representing a contract id.
 
 #### [private] GET /contracts/:contractId/verify
 
 > Verifies the authenticity of a contract.
+
+##### Path parameters
+
+| Name | Description
+|-|-
+| contractId | A `hex` number representing a contract id.
