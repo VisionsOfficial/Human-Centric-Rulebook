@@ -12,4 +12,4 @@ Property | Expected Type | Description
 `dataSharing.purpose` | Purpose | The Purpose for which the data should be used in this contract
 `dataSharing.datatypes` | DataType[] | The list of DataTypes involved in the contract
 `dataSharing.processor` | Service | If the Service uses a processor for the data in the contract, the Service acting as Processor.
-`dataSharing.conditions` | TermsOfUse[] | The list of Terms Of Use for the usage of data involved in the contract
+`dataSharing.termsOfUse` | TermsOfUse[] | The list of Terms Of Use for the usage of data involved in the contract

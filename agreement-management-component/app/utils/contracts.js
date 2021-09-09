@@ -51,8 +51,8 @@ module.exports = {
                         let dataset = await Dataset.findOne({datatypes: dt.id});
 
                         if(dataset) {
-                            if(!existingContract.dataSharing[index].conditions.includes(dataset.termsOfUse.toString())) {
-                                existingContract.dataSharing[index].conditions.push(dataset.termsOfUse.toString());
+                            if(!existingContract.dataSharing[index].termsOfUse.includes(dataset.termsOfUse.toString())) {
+                                existingContract.dataSharing[index].termsOfUse.push(dataset.termsOfUse.toString());
                             }
                         }
                     }
@@ -64,7 +64,7 @@ module.exports = {
                     let newDataSharing = {};
                     newDataSharing.purpose = {id: purposeId, name: purpose.name};
                     newDataSharing.datatypes = datatypes;
-                    newDataSharing.conditions = []
+                    newDataSharing.termsOfUse = []
 
                     for (const datatype of datatypes) {
                         const dt = await DataType.findById(datatype);
@@ -75,8 +75,8 @@ module.exports = {
                         let dataset = await Dataset.findOne({datatypes: dt.id});
 
                         if(dataset) {
-                            if(!newDataSharing.conditions.includes(dataset.termsOfUse.toString())) {
-                                newDataSharing.conditions.push(dataset.termsOfUse.toString());
+                            if(!newDataSharing.termsOfUse.includes(dataset.termsOfUse.toString())) {
+                                newDataSharing.termsOfUse.push(dataset.termsOfUse.toString());
                             }
                         }
                     }
@@ -101,7 +101,7 @@ module.exports = {
                 let newDataSharing = {};
                 newDataSharing.purpose = {id: purposeId, name: purpose.name};
                 newDataSharing.datatypes = datatypes;
-                newDataSharing.conditions = []
+                newDataSharing.termsOfUse = []
 
                 for (const datatype of datatypes) {
                     const dt = await DataType.findById(datatype);
@@ -112,8 +112,8 @@ module.exports = {
                     let dataset = await Dataset.findOne({datatypes: dt.id});
 
                     if(dataset) {
-                        if(!newDataSharing.conditions.includes(dataset.termsOfUse.toString())) {
-                            newDataSharing.conditions.push(dataset.termsOfUse.toString());
+                        if(!newDataSharing.termsOfUse.includes(dataset.termsOfUse.toString())) {
+                            newDataSharing.termsOfUse.push(dataset.termsOfUse.toString());
                         }
                     }
                 }
@@ -166,11 +166,11 @@ module.exports = {
             ds.datatypes = populatedDatatypes;
             populatedDatatypes = [];
 
-            for(const c of ds.conditions) {
+            for(const c of ds.termsOfUse) {
                 const termsOfUse = await TermsOfUse.findById(c);
                 populatedConditions.push(termsOfUse);
             }
-            ds.conditions = populatedConditions;
+            ds.termsOfUse = populatedConditions;
             populatedConditions = [];
         }
 

@@ -41,11 +41,11 @@ const simulateContract = (contract) => {
 
         html += `</tbody>
             </table>
-            <h5><b>Conditions</b></h5>
+            <h5><b>Terms of Use</b></h5>
             <table class="table table-striped">
         `;
 
-        for (const condition of ds.conditions) {
+        for (const condition of ds.termsOfUse) {
             html += `
                 <tr>
                     <td><b>Audit</b></td>

@@ -1139,7 +1139,7 @@
 															"611e422aaf29955d08545697",
 															"611e422eaf29955d0854569d"
 														],
-														"conditions": ["611e4234af29955d085456a3"],
+														"termsOfUse": ["611e4234af29955d085456a3"],
 														"_id": "6131061eb3cd5a8f1432d26b"
 													}
 												],
@@ -1235,7 +1235,7 @@
 														"name": "Sample DataType 2"
 													}
 												],
-												"conditions": [
+												"termsOfUse": [
 													{
 														"datasets": [],
 														"_id": "611e4234af29955d085456a3",

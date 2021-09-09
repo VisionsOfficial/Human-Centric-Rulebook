@@ -25,7 +25,7 @@ const schema = new Schema({
     accessionAgreement: {type: Schema.ObjectId, ref: "AccessionAgreement"},
 
     /**
-     * Specifications of the data and conditions involved in this contract
+     * Specifications of the data and termsOfUse involved in this contract
      */
     dataSharing: [{
         purpose: {
@@ -34,7 +34,7 @@ const schema = new Schema({
         },
         datatypes: [{type: Schema.ObjectId, ref: "DataType"}],
         processor: {type: Schema.ObjectId, ref: "Service"},
-        conditions: [{type: Schema.ObjectId, ref: "TermsOfUse"}],
+        termsOfUse: [{type: Schema.ObjectId, ref: "TermsOfUse"}],
     }],
 
     dataProviderSignature: {
