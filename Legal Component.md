@@ -71,7 +71,7 @@ The legal component is characterized by different functionalities, these functio
 | **Pre-Conditions** |-|
 | **Flow** |1.|
 | **Post-State** ||
-| **Notes/Requirements** | Functions: <br> - store data items <br> - store allowed and not allowed relations? <br><br> OPTION A:Propose:<br> - RDF triples/LOD store?<br><br>Contracts API:<br>- SPARQL endpoint?<br><br>Software: Apache JENA or similar?<br><br>OPTION B:<br>- straight to JSON-LD|
+| **Notes/Requirements** | |
 #
 
 
