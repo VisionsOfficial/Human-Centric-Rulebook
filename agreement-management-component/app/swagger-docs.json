@@ -1,0 +1,1395 @@
+{
+	"openapi": "3.0.0",
+	"servers": [
+		{
+			"url": "http://localhost:4050/api",
+			"description": "TEST SERVER",
+			"variables": {}
+		}
+	],
+	"info": {
+		"version": "0.1.0",
+		"title": "RULEBOOK",
+		"description": "Data Intermediary APIs",
+		"termsOfService": "",
+		"contact": {}
+	},
+	"paths": {
+		"/authenticate/token": {
+			"post": {
+				"summary": "Generate access token",
+				"description": "Retrieve a JWT for authentication to the private routes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					}
+				},
+				"requestBody": {
+					"description": "Retrieve a JWT for authentication to the private routes",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"serviceKey": "your_service_key",
+									"secretKey": "your_secret_key"
+								}
+							},
+							"example": "{\r\n    \"serviceKey\": \"your_service_key\",\r\n    \"secretKey\": \"your_secret_key\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Authenticate"]
+			}
+		},
+		"/services": {
+			"post": {
+				"summary": "Register",
+				"description": "Register a new service",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					},
+					"201": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Service successfully created. Please save the serviceKey and serviceSecretKey for authentication to the API.",
+									"serviceKey": "eN1nWEAJORzQtZrhHRPd7tB1t8OXVuRweLO39xWIXnImzUDsxEtU8Wv5XTQJrvRUM3ZvfamJk95jhfBQSE2z6WPLgbczEQAx1Nun",
+									"serviceSecretKey": "EPeyIQQHTWdik0g"
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Register a new service",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"serviceName": "your_service_name",
+									"password": "your_service_password"
+								}
+							},
+							"example": "{\r\n    \"serviceName\": \"your_service_name\",\r\n    \"password\": \"your_service_password\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Services"]
+			}
+		},
+		"/services/info": {
+			"get": {
+				"summary": "Get Service",
+				"description": "Get information on your service",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"service": {
+										"governance": {
+											"legalRepresentative": {
+												"name": "Sample Data",
+												"email": "Sample Data",
+												"profession": "Sample Data"
+											},
+											"dataProtectionOfficer": {
+												"name": "Sample Data",
+												"email": "Sample Data"
+											},
+											"registration": "Sample Data",
+											"registeredOfficeAddress": "Sample Data"
+										},
+										"purposes": ["61310ccc993ccb2b44072d47"],
+										"datatypes": [
+											"611e422aaf29955d08545697",
+											"611e422eaf29955d0854569d"
+										],
+										"isProcessing": false,
+										"identifiers": [],
+										"_id": "611e2d6d0fa82d2938d3c7b8",
+										"name": "Sample Data Provider Service",
+										"password": "$2a$08$Tm40llkC9MyUNvegaCNaVeq9lclP7o7Eg.BWEOUYq9aGMUCiImp92",
+										"serviceKey": "27SgxcT8cbkGWq1KsyEMm767fuVfA2Nj3OPLudrFRpBDPzPsM2knNib3HxPLKcGzCQlEZEIayYI3b9mOrTigIomd9ro3aNGyzKdJ",
+										"serviceSecretKey": "Wd4wTssnV0J6Tp1",
+										"__v": 3
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Services"]
+			}
+		},
+		"/purposes": {
+			"get": {
+				"summary": "All",
+				"description": "Get all your service purposes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"purposes": [
+										{
+											"datatypes": [],
+											"_id": "61310ccc993ccb2b44072d47",
+											"importedDatatypes": [],
+											"name": "Find a job",
+											"description": "Helps you find a job",
+											"service": "611e2d6d0fa82d2938d3c7b8",
+											"__v": 0
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Purposes"]
+			},
+			"post": {
+				"summary": "Create",
+				"description": "Register a new Purpose for your service",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					},
+					"201": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Purpose successfully created",
+									"purpose": {
+										"datatypes": [],
+										"_id": "613918ecc615ecb450a0cc51",
+										"importedDatatypes": [],
+										"name": "your_purpose_name",
+										"description": "your_purpose_description",
+										"service": "611e2d6d0fa82d2938d3c7b8",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Register a new Purpose for your service",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"name": "your_purpose_name",
+									"description": "your_purpose_description"
+								}
+							},
+							"example": "{\r\n    \"name\": \"your_purpose_name\",\r\n    \"description\": \"your_purpose_description\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Purposes"]
+			},
+			"put": {
+				"summary": "Update",
+				"description": "Update a purpose from your service",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully updated Purpose"
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Update a purpose from your service",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"purposeId": "your_purpose_id",
+									"description": "your_new_description"
+								}
+							},
+							"example": "{\r\n    \"purposeId\": \"your_purpose_id\",\r\n    \"description\": \"your_new_description\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Purposes"]
+			},
+			"delete": {
+				"summary": "Delete",
+				"description": "Delete a purpose from your service",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully deleted Purpose"
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Purposes"]
+			}
+		},
+		"/purposes/{purposeId}": {
+			"get": {
+				"summary": "One",
+				"description": "Get information on one of your service's purpose",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/purposeId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"purpose": {
+										"datatypes": [],
+										"_id": "61310ccc993ccb2b44072d47",
+										"importedDatatypes": [],
+										"name": "Find a job",
+										"description": "Helps you find a job",
+										"service": "611e2d6d0fa82d2938d3c7b8",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Purposes"]
+			}
+		},
+		"/datatypes": {
+			"get": {
+				"summary": "All",
+				"description": "Get the list of your Datatypes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"datatypes": [
+										{
+											"conservation": {
+												"type": "",
+												"unit": "",
+												"length": "",
+												"description": ""
+											},
+											"frequency": {
+												"unit": "",
+												"value": "",
+												"repeats": false
+											},
+											"_id": "611e422aaf29955d08545697",
+											"time": "2021-08-19T11:36:10.107Z",
+											"name": "Sample DataType 1",
+											"description": "Sample DataType description",
+											"provenance": "611e2d6d0fa82d2938d3c7b8",
+											"__v": 0
+										},
+										{
+											"conservation": {
+												"type": "",
+												"unit": "",
+												"length": "",
+												"description": ""
+											},
+											"frequency": {
+												"unit": "",
+												"value": "",
+												"repeats": false
+											},
+											"_id": "611e422eaf29955d0854569d",
+											"time": "2021-08-19T11:36:14.059Z",
+											"name": "Sample DataType 2",
+											"description": "Sample DataType description",
+											"provenance": "611e2d6d0fa82d2938d3c7b8",
+											"__v": 0
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": ["DataTypes"]
+			},
+			"post": {
+				"summary": "Create",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					},
+					"201": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "DataType successfully created",
+									"datatype": {
+										"conservation": {
+											"type": "",
+											"unit": "",
+											"length": "",
+											"description": ""
+										},
+										"frequency": {
+											"unit": "",
+											"value": "",
+											"repeats": false
+										},
+										"_id": "613919b3c615ecb450a0cc68",
+										"time": "2021-09-08T20:14:43.959Z",
+										"name": "your_datatype_name",
+										"description": "your_datatype_description",
+										"provenance": "611e2d6d0fa82d2938d3c7b8",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"name": "your_datatype_name",
+									"description": "your_datatype_description"
+								}
+							},
+							"example": "{\r\n    \"name\": \"your_datatype_name\",\r\n    \"description\": \"your_datatype_description\"\r\n}"
+						}
+					}
+				},
+				"tags": ["DataTypes"]
+			},
+			"put": {
+				"summary": "Update",
+				"description": "Update one of your Datatypes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully updated DataType"
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Update one of your Datatypes",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"datatypeId": "your_datatype_id",
+									"description": "your_new_description"
+								}
+							},
+							"example": "{\r\n    \"datatypeId\": \"your_datatype_id\",\r\n    \"description\": \"your_new_description\"\r\n}"
+						}
+					}
+				},
+				"tags": ["DataTypes"]
+			},
+			"delete": {
+				"summary": "Delete",
+				"description": "Delete one of your Service's Datatypes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Delete",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully deleted DataType"
+								}
+							}
+						}
+					}
+				},
+				"tags": ["DataTypes"]
+			}
+		},
+		"/datatypes/{datatypeId}": {
+			"get": {
+				"summary": "One",
+				"description": "Get info on one of your Datatype",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/datatypeId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"datatype": {
+										"conservation": {
+											"type": "",
+											"unit": "",
+											"length": "",
+											"description": ""
+										},
+										"frequency": {
+											"unit": "",
+											"value": "",
+											"repeats": false
+										},
+										"_id": "611e422eaf29955d0854569d",
+										"time": "2021-08-19T11:36:14.059Z",
+										"name": "Sample DataType 2",
+										"description": "Sample DataType description",
+										"provenance": "611e2d6d0fa82d2938d3c7b8",
+										"__v": 0
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not-found",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"error": "not-found-error",
+									"message": "Datatype not found."
+								}
+							}
+						}
+					}
+				},
+				"tags": ["DataTypes"]
+			}
+		},
+		"/termsofuse": {
+			"get": {
+				"summary": "All",
+				"description": "Get all your service terms of use.",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "All",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"termsOfUse": [
+										{
+											"datasets": [],
+											"_id": "611e4234af29955d085456a3",
+											"createdAt": "2021-08-19T11:36:20.517Z",
+											"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+											"name": "Sample Terms Of Use",
+											"restrictions": "Sample restrictions example : if it includes personal data, but it must be anonymized by replacing data that allows personal identification (e.g.; faces shown on photos) by an adequate substitute (e.g., pixelized) in order to guarantee that individuals cannot be deanonymized",
+											"reporting": "Sample reporting obligations",
+											"audit": "Sample audit obligations",
+											"dataSecurity": "Sample Data Security obligations example : Data must not be modified by Connectors that are not Trusted Connectors.",
+											"dataProtection": "Sample Data Protection example : Data Processing Agreement duly signed by both Data Provider and User.",
+											"confidentialInformation": "Sample Confidential Information example : Non-Disclosure Agreement duly signed by both the Data Provider and the User.",
+											"intellectualPropertyRights": "Sample intellectial property rights",
+											"otherTerms": "",
+											"__v": 0
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": ["TermsOfUse"]
+			},
+			"post": {
+				"summary": "Create",
+				"description": "Create new Terms of Use",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Create",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully created Terms of Use",
+									"termsOfUse": {
+										"datasets": [],
+										"_id": "61391e1ec615ecb450a0cc9f",
+										"createdAt": "2021-09-08T20:33:34.835Z",
+										"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+										"name": "your_tou_name",
+										"restrictions": "your_tou_restrictions",
+										"reporting": "your_tou_reporting",
+										"audit": "your_tou_audit",
+										"dataSecurity": "your_tou_datasecurity",
+										"dataProtection": "your_tou_dataProtection",
+										"confidentialInformation": "your_tou_confidentialInformation",
+										"intellectualPropertyRights": "your_tou_intellectualPropertyRights",
+										"otherTerms": "",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Create new Terms of Use",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"name": "your_tou_name",
+									"restrictions": "your_tou_restrictions",
+									"reporting": "your_tou_reporting",
+									"audit": "your_tou_audit",
+									"dataSecurity": "your_tou_datasecurity",
+									"dataProtection": "your_tou_dataProtection",
+									"confidentialInformation": "your_tou_confidentialInformation",
+									"intellectualPropertyRights": "your_tou_intellectualPropertyRights"
+								}
+							},
+							"example": "{\r\n    \"name\": \"your_tou_name\",\r\n    \"restrictions\": \"your_tou_restrictions\",\r\n    \"reporting\": \"your_tou_reporting\",\r\n    \"audit\": \"your_tou_audit\",\r\n    \"dataSecurity\": \"your_tou_datasecurity\",\r\n    \"dataProtection\": \"your_tou_dataProtection\",\r\n    \"confidentialInformation\": \"your_tou_confidentialInformation\",\r\n    \"intellectualPropertyRights\": \"your_tou_intellectualPropertyRights\"\r\n}"
+						}
+					}
+				},
+				"tags": ["TermsOfUse"]
+			},
+			"put": {
+				"summary": "Update",
+				"description": "Update Terms of Use",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Update",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully updated Terms of Use",
+									"termsOfUse": {
+										"datasets": [],
+										"_id": "61391e1ec615ecb450a0cc9f",
+										"createdAt": "2021-09-08T20:33:34.835Z",
+										"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+										"name": "your_tou_name",
+										"restrictions": "your_tou_restrictions",
+										"reporting": "your_tou_reporting",
+										"audit": "your_tou_audit",
+										"dataSecurity": "your_tou_datasecurity",
+										"dataProtection": "your_tou_dataProtection",
+										"confidentialInformation": "your_new_field_value",
+										"intellectualPropertyRights": "your_tou_intellectualPropertyRights",
+										"otherTerms": "",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Update Terms of Use",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"termsOfUseId": "your_terms_of_use_id",
+									"confidentialInformation": "your_new_field_value"
+								}
+							},
+							"example": "{\r\n    \"termsOfUseId\": \"your_terms_of_use_id\",\r\n    \"confidentialInformation\": \"your_new_field_value\"\r\n}"
+						}
+					}
+				},
+				"tags": ["TermsOfUse"]
+			},
+			"delete": {
+				"summary": "Delete",
+				"description": "Delete terms of use",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Delete",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully deleted termsOfUse"
+								}
+							}
+						}
+					}
+				},
+				"tags": ["TermsOfUse"]
+			}
+		},
+		"/termsofuse/{termsofuseId}": {
+			"get": {
+				"summary": "One",
+				"description": "Get info on one of your service terms of use",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/termsofuseId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "One",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"termsOfUse": {
+										"datasets": [],
+										"_id": "611e34a1a854f567f878f706",
+										"createdAt": "2021-08-19T10:38:25.794Z",
+										"dataProvider": "611e2d860fa82d2938d3c7bb",
+										"name": "Sample Terms Of Use",
+										"restrictions": "Sample restrictions",
+										"reporting": "Sample reporting",
+										"audit": "Sample audit",
+										"dataSecurity": "Sample Data Security",
+										"dataProtection": "Sample Data Protection",
+										"confidentialInformation": "Sample Confidential Information",
+										"intellectualPropertyRights": "Sample intellectial property rights",
+										"otherTerms": "",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": ["TermsOfUse"]
+			}
+		},
+		"/datasets/request/{datasetId}": {
+			"post": {
+				"summary": "Request access to a dataset",
+				"description": "Request access to a Dataset",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/datasetId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Request created",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully created dataset request",
+									"request": {
+										"authorized": false,
+										"_id": "6131153fea660311dc60ca52",
+										"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+										"dataUser": "611e2d860fa82d2938d3c7bb",
+										"purpose": "61310ccc993ccb2b44072d47",
+										"dataset": "611e4257af29955d085456aa",
+										"createdAt": "2021-09-02T18:17:35.501Z",
+										"updatedAt": "2021-09-02T18:17:35.501Z",
+										"__v": 0
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Request already exists",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "A request already exists for this dataset.",
+									"request": {
+										"authorized": false,
+										"_id": "6131153fea660311dc60ca52",
+										"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+										"dataUser": "611e2d860fa82d2938d3c7bb",
+										"purpose": "61310ccc993ccb2b44072d47",
+										"dataset": "611e4257af29955d085456aa",
+										"createdAt": "2021-09-02T18:17:35.501Z",
+										"updatedAt": "2021-09-02T18:17:35.501Z",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Request access to a Dataset",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"purpose": "61310ccc993ccb2b44072d47"
+								}
+							},
+							"example": "{\r\n    \"purpose\": \"61310ccc993ccb2b44072d47\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Dataset Requests"]
+			}
+		},
+		"/datasets/request/in": {
+			"get": {
+				"summary": "Get all Incoming Requests",
+				"description": "Get all incoming dataset access requests",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Incoming Requests",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"requests": [
+										{
+											"authorized": true,
+											"_id": "6131153fea660311dc60ca52",
+											"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+											"dataUser": "611e2d860fa82d2938d3c7bb",
+											"purpose": "61310ccc993ccb2b44072d47",
+											"dataset": "611e4257af29955d085456aa",
+											"createdAt": "2021-09-02T18:17:35.501Z",
+											"updatedAt": "2021-09-02T18:19:07.698Z",
+											"__v": 0
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Dataset Requests"]
+			}
+		},
+		"/datasets/request/out": {
+			"get": {
+				"summary": "Get all outgoing Requests Copy",
+				"description": "Get all outgoing dataset access requests.",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Get all outgoing Requests Copy",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"requests": [
+										{
+											"authorized": false,
+											"_id": "6131153fea660311dc60ca52",
+											"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+											"dataUser": "611e2d860fa82d2938d3c7bb",
+											"purpose": "61310ccc993ccb2b44072d47",
+											"dataset": "611e4257af29955d085456aa",
+											"createdAt": "2021-09-02T18:17:35.501Z",
+											"updatedAt": "2021-09-02T18:17:35.501Z",
+											"__v": 0
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Dataset Requests"]
+			}
+		},
+		"/datasets/request/{requestId}": {
+			"get": {
+				"summary": "Get info on one Request",
+				"description": "Get info on one dataset access request",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/requestId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Get info on one Request",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"request": {
+										"authorized": false,
+										"_id": "6131153fea660311dc60ca52",
+										"dataProvider": {
+											"_id": "611e2d6d0fa82d2938d3c7b8",
+											"name": "Sample Data Provider Service"
+										},
+										"dataUser": {
+											"_id": "611e2d860fa82d2938d3c7bb",
+											"name": "Sample Data User Service"
+										},
+										"purpose": {
+											"_id": "61310ccc993ccb2b44072d47",
+											"name": "Find a job"
+										},
+										"dataset": "611e4257af29955d085456aa",
+										"createdAt": "2021-09-02T18:17:35.501Z",
+										"updatedAt": "2021-09-02T18:17:35.501Z",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Dataset Requests"]
+			}
+		},
+		"/datasets/request/{requestId}/authorize": {
+			"post": {
+				"summary": "Authorize the use of a dataset",
+				"description": "Authorize access to a requested dataset",
+				"parameters": [
+					{
+						"name": "requestId",
+						"in": "path",
+						"required": true,
+						"style": "simple",
+						"schema": {
+							"type": "string",
+							"example": "6131153fea660311dc60ca52"
+						},
+						"description": "Dataset Request ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successfully authorized",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully authorized the dataset request.",
+									"request": {
+										"authorized": true,
+										"_id": "6131153fea660311dc60ca52",
+										"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+										"dataUser": "611e2d860fa82d2938d3c7bb",
+										"purpose": "61310ccc993ccb2b44072d47",
+										"dataset": "611e4257af29955d085456aa",
+										"createdAt": "2021-09-02T18:17:35.501Z",
+										"updatedAt": "2021-09-02T18:19:07.698Z",
+										"__v": 0
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Authorized failed",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"error": "forbidden-error",
+									"message": "Cannot authorize this dataset request as you are not the owner."
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Dataset Requests"]
+			}
+		},
+		"/datasets": {
+			"get": {
+				"summary": "All",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "All",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"datasets": [
+										{
+											"datatypes": [
+												"611e422aaf29955d08545697",
+												"611e422eaf29955d0854569d"
+											],
+											"_id": "611e4257af29955d085456aa",
+											"createdAt": "2021-08-19T11:36:55.198Z",
+											"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+											"termsOfUse": "611e4234af29955d085456a3",
+											"description": "",
+											"__v": 0
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Datasets"]
+			},
+			"post": {
+				"summary": "Create",
+				"description": "Register a new dataset for your Service",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					}
+				},
+				"requestBody": {
+					"description": "Register a new dataset for your Service",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"datatypes": ["", ""],
+									"termsOfUse": ""
+								}
+							},
+							"example": "{\r\n    \"datatypes\": [\r\n        \"\",\r\n        \"\"\r\n    ],\r\n    \"termsOfUse\": \"\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Datasets"]
+			},
+			"put": {
+				"summary": "Update",
+				"description": "Update a Dataset's information",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Update",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"message": "Successfully updated dataset",
+									"dataset": {
+										"datatypes": [
+											"611e422aaf29955d08545697",
+											"611e422eaf29955d0854569d"
+										],
+										"_id": "611e4257af29955d085456aa",
+										"createdAt": "2021-08-19T11:36:55.198Z",
+										"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+										"termsOfUse": "611e4234af29955d085456a3",
+										"description": "your_new_description",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"description": "Update a Dataset's information",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"datasetId": "your_dataset_id",
+									"description": "your_new_description"
+								}
+							},
+							"example": "{\r\n    \"datasetId\": \"your_dataset_id\",\r\n    \"description\": \"your_new_description\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Datasets"]
+			},
+			"delete": {
+				"summary": "Delete",
+				"description": "Delete a dataset",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					}
+				},
+				"tags": ["Datasets"]
+			}
+		},
+		"/datasets/{datasetId}": {
+			"get": {
+				"summary": "One",
+				"parameters": [
+					{
+						"name": "datasetId",
+						"in": "path",
+						"required": true,
+						"style": "simple",
+						"schema": {
+							"type": "string",
+							"example": "611e4257af29955d085456aa"
+						},
+						"description": "The Dataset ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "One",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"dataset": {
+										"datatypes": [
+											"611e422aaf29955d08545697",
+											"611e422eaf29955d0854569d"
+										],
+										"_id": "611e4257af29955d085456aa",
+										"createdAt": "2021-08-19T11:36:55.198Z",
+										"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+										"termsOfUse": "611e4234af29955d085456a3",
+										"description": "",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Datasets"]
+			}
+		},
+		"/contracts/datasharing": {
+			"get": {
+				"summary": "All",
+				"description": "Get all contracts for your service. Contracts in dataProvider are the ones where your service is the Data Provider, whereas contracts in dataUser are the ones where your service is Data User.",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "All",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"result": {
+										"dataProvider": [
+											{
+												"dataProviderSignature": {
+													"signed": true,
+													"timestamp": "2021-09-02T17:13:11.012Z"
+												},
+												"dataUserSignature": {
+													"signed": true,
+													"timestamp": "2021-09-02T17:14:27.346Z"
+												},
+												"_id": "6131061eb3cd5a8f1432d266",
+												"dataSharing": [
+													{
+														"purpose": {
+															"id": "611e307fe98a6725a075b7f3",
+															"name": "Sample purpose"
+														},
+														"datatypes": [
+															"611e422aaf29955d08545697",
+															"611e422eaf29955d0854569d"
+														],
+														"conditions": ["611e4234af29955d085456a3"],
+														"_id": "6131061eb3cd5a8f1432d26b"
+													}
+												],
+												"serviceImport": "611e2d860fa82d2938d3c7bb",
+												"serviceExport": "611e2d6d0fa82d2938d3c7b8",
+												"createdAt": "2021-09-02T17:13:02.775Z",
+												"updatedAt": "2021-09-02T17:14:27.348Z",
+												"__v": 0
+											}
+										],
+										"dataUser": []
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Contracts"]
+			},
+			"post": {
+				"summary": "Create data sharing contract",
+				"description": "Create a data sharing agreement",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					}
+				},
+				"requestBody": {
+					"description": "Create a data sharing agreement",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"serviceImportId": "data_user_service_id",
+									"serviceExportId": "data_provider_service_id",
+									"purposeId": "data_user_purpose_id",
+									"datatypes": [
+										"data_provider_datatype_id_1",
+										"data_provider_datatype_id_2",
+										"..."
+									]
+								}
+							},
+							"example": "{\r\n    \"serviceImportId\": \"data_user_service_id\",\r\n    \"serviceExportId\": \"data_provider_service_id\",\r\n    \"purposeId\": \"data_user_purpose_id\",\r\n    \"datatypes\": [\r\n        \"data_provider_datatype_id_1\",\r\n        \"data_provider_datatype_id_2\",\r\n        \"...\"\r\n    ]\r\n}"
+						}
+					}
+				},
+				"tags": ["Contracts"]
+			}
+		},
+		"/contracts/datasharing/{contractId}": {
+			"get": {
+				"summary": "One",
+				"description": "Get information on a single contract",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/contractId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "One",
+						"content": {
+							"application/json; charset=utf-8": {
+								"example": {
+									"contract": {
+										"dataProviderSignature": {
+											"signed": true,
+											"timestamp": "2021-09-02T17:13:11.012Z"
+										},
+										"dataUserSignature": {
+											"signed": true,
+											"timestamp": "2021-09-02T17:14:27.346Z"
+										},
+										"_id": "6131061eb3cd5a8f1432d266",
+										"dataSharing": [
+											{
+												"purpose": {
+													"id": "611e307fe98a6725a075b7f3",
+													"name": "Sample purpose"
+												},
+												"datatypes": [
+													{
+														"_id": "611e422aaf29955d08545697",
+														"name": "Sample DataType 1"
+													},
+													{
+														"_id": "611e422eaf29955d0854569d",
+														"name": "Sample DataType 2"
+													}
+												],
+												"conditions": [
+													{
+														"datasets": [],
+														"_id": "611e4234af29955d085456a3",
+														"createdAt": "2021-08-19T11:36:20.517Z",
+														"dataProvider": "611e2d6d0fa82d2938d3c7b8",
+														"name": "Sample Terms Of Use",
+														"restrictions": "Sample restrictions example : if it includes personal data, but it must be anonymized by replacing data that allows personal identification (e.g.; faces shown on photos) by an adequate substitute (e.g., pixelized) in order to guarantee that individuals cannot be deanonymized",
+														"reporting": "Sample reporting obligations",
+														"audit": "Sample audit obligations",
+														"dataSecurity": "Sample Data Security obligations example : Data must not be modified by Connectors that are not Trusted Connectors.",
+														"dataProtection": "Sample Data Protection example : Data Processing Agreement duly signed by both Data Provider and User.",
+														"confidentialInformation": "Sample Confidential Information example : Non-Disclosure Agreement duly signed by both the Data Provider and the User.",
+														"intellectualPropertyRights": "Sample intellectial property rights",
+														"otherTerms": "",
+														"__v": 0
+													}
+												],
+												"_id": "6131061eb3cd5a8f1432d26b"
+											}
+										],
+										"serviceImport": {
+											"_id": "611e2d860fa82d2938d3c7bb",
+											"name": "Sample Data User Service"
+										},
+										"serviceExport": {
+											"_id": "611e2d6d0fa82d2938d3c7b8",
+											"name": "Sample Data Provider Service"
+										},
+										"createdAt": "2021-09-02T17:13:02.775Z",
+										"updatedAt": "2021-09-02T17:14:27.348Z",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Contracts"]
+			}
+		},
+		"/contracts/datasharing/sign": {
+			"post": {
+				"summary": "Sign",
+				"description": "Sign a data sharing Agreement (contract)",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"headers": {}
+					}
+				},
+				"requestBody": {
+					"description": "Sign a data sharing Agreement (contract)",
+					"required": true,
+					"content": {
+						"text/plain": {
+							"schema": {
+								"type": "string",
+								"example": {
+									"ethereumWalletAddress": "your_ethereum_wallet_address",
+									"contractId": "your_contract_ID_to_sign"
+								}
+							},
+							"example": "{\r\n    \"ethereumWalletAddress\": \"your_ethereum_wallet_address\",\r\n    \"contractId\": \"your_contract_ID_to_sign\"\r\n}"
+						}
+					}
+				},
+				"tags": ["Contracts"]
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		},
+		"schemas": {},
+		"parameters": {
+			"purposeId": {
+				"name": "purposeId",
+				"in": "path",
+				"required": true,
+				"style": "simple",
+				"schema": {
+					"type": "string",
+					"example": "61310ccc993ccb2b44072d47"
+				},
+				"description": "The ID of the purpose to retrieve"
+			},
+			"datatypeId": {
+				"name": "datatypeId",
+				"in": "path",
+				"required": true,
+				"style": "simple",
+				"schema": {
+					"type": "string",
+					"example": "611e422eaf29955d0854569d"
+				},
+				"description": "The Datatype Id"
+			},
+			"termsofuseId": {
+				"name": "termsofuseId",
+				"in": "path",
+				"required": true,
+				"style": "simple",
+				"schema": {
+					"type": "string",
+					"example": "611e34a1a854f567f878f706"
+				},
+				"description": "Terms of Use ID"
+			},
+			"datasetId": {
+				"name": "datasetId",
+				"in": "path",
+				"required": true,
+				"style": "simple",
+				"schema": {
+					"type": "string",
+					"example": "611e4257af29955d085456aa"
+				},
+				"description": "The requested Dataset ID"
+			},
+			"requestId": {
+				"name": "requestId",
+				"in": "path",
+				"required": true,
+				"style": "simple",
+				"schema": {
+					"type": "string",
+					"example": "6131153fea660311dc60ca52"
+				},
+				"description": "Dataset Request ID"
+			},
+			"contractId": {
+				"name": "contractId",
+				"in": "path",
+				"required": true,
+				"style": "simple",
+				"schema": {
+					"type": "string",
+					"example": "6131061eb3cd5a8f1432d266"
+				},
+				"description": "Your contract ID"
+			}
+		}
+	},
+	"security": [
+		{
+			"BearerAuth": []
+		}
+	],
+	"tags": [],
+	"warnings": []
+}
