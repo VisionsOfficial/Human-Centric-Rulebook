@@ -37,10 +37,16 @@ const schema = new Schema({
         conditions: [{type: Schema.ObjectId, ref: "TermsOfUse"}],
     }],
 
-    /**
-     * Created at
-     */
-    createdAt: {type: Date, default: Date.now}
-});
+    dataProviderSignature: {
+        signed: Boolean,
+        timestamp: Date,
+    },
+
+    dataUserSignature: {
+        signed: Boolean,
+        timestamp: Date,
+    },
+
+}, {timestamps: true});
 
 module.exports = mongoose.model("DataSharingContract", schema);
