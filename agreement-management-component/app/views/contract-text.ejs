@@ -139,8 +139,8 @@
 
             <ol>
                 <% contract.dataSharing.forEach(item => { %>
-                    <% if (item.conditions.length > 0) { %>
-                        <% item.conditions.forEach(condition => { %>
+                    <% if (item.termsOfUse.length > 0) { %>
+                        <% item.termsOfUse.forEach(condition => { %>
                             <li><b class="text-primary"><%= condition.restrictions %></b></li>
                         <% }) %>
                     <% } %>
@@ -166,8 +166,8 @@
 
         <ol>
             <% contract.dataSharing.forEach(item => { %>
-                <% if (item.conditions.length > 0) { %>
-                    <% item.conditions.forEach(condition => { %>
+                <% if (item.termsOfUse.length > 0) { %>
+                    <% item.termsOfUse.forEach(condition => { %>
                         <li><b class="text-primary"><%= condition.reporting %></b></li>
                     <% }) %>
                 <% } %>
@@ -181,8 +181,8 @@
 
         <ol>
             <% contract.dataSharing.forEach(item => { %>
-                <% if (item.conditions.length > 0) { %>
-                    <% item.conditions.forEach(condition => { %>
+                <% if (item.termsOfUse.length > 0) { %>
+                    <% item.termsOfUse.forEach(condition => { %>
                         <li><b class="text-primary"><%= condition.audit %></b></li>
                     <% }) %>
                 <% } %>
@@ -196,8 +196,8 @@
 
         <ol>
             <% contract.dataSharing.forEach(item => { %>
-                <% if (item.conditions.length > 0) { %>
-                    <% item.conditions.forEach(condition => { %>
+                <% if (item.termsOfUse.length > 0) { %>
+                    <% item.termsOfUse.forEach(condition => { %>
                         <li><b class="text-primary"><%= condition.dataSecurity %></b></li>
                     <% }) %>
                 <% } %>
@@ -211,8 +211,8 @@
 
         <ol>
             <% contract.dataSharing.forEach(item => { %>
-                <% if (item.conditions.length > 0) { %>
-                    <% item.conditions.forEach(condition => { %>
+                <% if (item.termsOfUse.length > 0) { %>
+                    <% item.termsOfUse.forEach(condition => { %>
                         <li><b class="text-primary"><%= condition.confidentialInformation %></b></li>
                     <% }) %>
                 <% } %>
@@ -227,8 +227,8 @@
 
         <ol>
             <% contract.dataSharing.forEach(item => { %>
-                <% if (item.conditions.length > 0) { %>
-                    <% item.conditions.forEach(condition => { %>
+                <% if (item.termsOfUse.length > 0) { %>
+                    <% item.termsOfUse.forEach(condition => { %>
                         <li><b class="text-primary"><%= condition.dataProtection %></b></li>
                     <% }) %>
                 <% } %>
@@ -241,8 +241,8 @@
 
         <ol>
             <% contract.dataSharing.forEach(item => { %>
-                <% if (item.conditions.length > 0) { %>
-                    <% item.conditions.forEach(condition => { %>
+                <% if (item.termsOfUse.length > 0) { %>
+                    <% item.termsOfUse.forEach(condition => { %>
                         <li><b class="text-primary"><%= condition.intellectualPropertyRights %></b></li>
                     <% }) %>
                 <% } %>
@@ -281,8 +281,8 @@
 
         <ol>
             <% contract.dataSharing.forEach(item => { %>
-                <% if (item.conditions.length > 0) { %>
-                    <% item.conditions.forEach(condition => { %>
+                <% if (item.termsOfUse.length > 0) { %>
+                    <% item.termsOfUse.forEach(condition => { %>
                         <% if (condition.otherTerms !== "") { %>
                             <li><b class="text-primary"><%= condition.otherTerms %></b></li>
                         <% } %>

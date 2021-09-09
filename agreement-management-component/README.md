@@ -4,7 +4,7 @@
 
 `Schemas`
 
-Contains the various model schemas along with descriptions used in the contractual framework.
+Contains the various model schemas along with descriptions used in the contractual framework provided by the Agreement Management Component.
 
 `App`
 

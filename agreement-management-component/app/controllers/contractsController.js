@@ -36,7 +36,7 @@ exports.one = async (req, res, next) => {
             {path: "serviceImport", select: "name"},
             {path: "serviceExport", select: "name"},
             {path: "dataSharing.datatypes", select: "name"},
-            {path: "dataSharing.conditions"}
+            {path: "dataSharing.termsOfUse"}
         ]
         
         const contract = await DataSharingContractModel.findById(req.params.contractId)

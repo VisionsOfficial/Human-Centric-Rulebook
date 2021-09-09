@@ -32,12 +32,12 @@ exports.signContract = async (req, res, next) => {
 			ds.datatypes = populatedDatatypes;
 			populatedDatatypes = [];
 
-			for (const c of ds.conditions) {
+			for (const c of ds.termsOfUse) {
 				const termsOfUse = await TermsOfUse.findById(c);
 				populatedConditions.push(termsOfUse);
 			}
 
-			ds.conditions = populatedConditions;
+			ds.termsOfUse = populatedConditions;
 			populatedConditions = [];
 		}
 
@@ -98,12 +98,12 @@ exports.viewContractAsText = async (req, res, next) => {
 		ds.datatypes = populatedDatatypes;
 		populatedDatatypes = [];
 
-		for (const c of ds.conditions) {
+		for (const c of ds.termsOfUse) {
 			const termsOfUse = await TermsOfUse.findById(c);
 			populatedConditions.push(termsOfUse);
 		}
 
-		ds.conditions = populatedConditions;
+		ds.termsOfUse = populatedConditions;
 		populatedConditions = [];
 	}
 
