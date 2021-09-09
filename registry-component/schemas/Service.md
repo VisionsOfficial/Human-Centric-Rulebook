@@ -17,5 +17,5 @@ Property | Expected Type | Description
 `endpoints.consentImport` | String | Endpoint for the processing of a consent to make a data request to another service
 `endpoints.dataExport` | String | Endpoint called including a consent and access token to request data
 `endpoints.dataImport` | String | Endpoint to receive send data from another service
-<!-- `datasets` | Dataset[] | Published datasets of the service -->
 `purposes` | Purpose[] | Processings of data by the service
+<!-- `datasets` | Dataset[] | Published datasets of the service -->
