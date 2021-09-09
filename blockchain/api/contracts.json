@@ -1,0 +1,9 @@
+{
+  "outputPath": "./src/contracts",
+  "contracts": {
+    "DapsiNFT": {
+      "source": "files",
+      "abiFile": "./src/contracts/raw/dapsi-nft.json"
+    }
+  }
+}
