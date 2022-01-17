@@ -1,8 +1,8 @@
 This document is set in the context of the [Rulebook project](https://dapsi.ngi.eu/hall-of-fame/rulebook/), led by Visions with 1001lakes and Knowledge Innovation Centre. The Rulebook project is financed by the European Commission through NGI DAPSI and aims to build open source legal components to enable decentralized and human-centric data sharing.
 
-This document describes the Legal component for human-centric data sharing. It aims to describe the 2nd layer of [OASC MIM4](https://oasc.atlassian.net/wiki/spaces/OASCMIM/pages/30179329/MIM%2B4%2BPersonal%2BData%2BManagement) about data sharing agreements. It also allows implementation of data policies as described in the [IDSA RAM](https://internationaldataspaces.org/ids-ram-3-0/).
+This document describes the Data Contract Service  for human-centric data sharing. It aims to describe the 2nd layer of [OASC MIM4](https://oasc.atlassian.net/wiki/spaces/OASCMIM/pages/30179329/MIM%2B4%2BPersonal%2BData%2BManagement) about data sharing agreements. It also allows implementation of data policies as described in the [IDSA RAM](https://internationaldataspaces.org/ids-ram-3-0/).
 
-This legal component allows the membersparticipants of a data network (data providerssources, service providersdata using services, end users, infrastructure operatorsdata intermediary, and individualsperson) to be sure that each data transfer and access respects legal and governance rules and ties each data transfer to a data sharing agreement.
+This Data Contract Service allows the members participants of a data network (data providerssources, service providersdata using services, end users, infrastructure operatorsdata intermediary, and individualsperson) to be sure that each data transfer and access respects legal and governance rules and ties each data transfer to a data sharing agreement.
 
 _As a data source (DS), I want to be able to set data policies to be sure data is accessed only by organisations and for processings that respect my conditions._
 
@@ -71,7 +71,7 @@ The legal component is characterized by different functionalities, these functio
 | **Pre-Conditions** |-|
 | **Flow** |1.|
 | **Post-State** ||
-| **Notes/Requirements** | Functions: <br> - store data items <br> - store allowed and not allowed relations? <br><br> OPTION A:Propose:<br> - RDF triples/LOD store?<br><br>Contracts API:<br>- SPARQL endpoint?<br><br>Software: Apache JENA or similar?<br><br>OPTION B:<br>- straight to JSON-LD|
+| **Notes/Requirements** | |
 #
 
 
@@ -136,17 +136,3 @@ The legal component is characterized by different functionalities, these functio
 
 **Signing API Requirements**
 
-**MMVP**
-
-1. DSA in pdf generated from JSON in our system, and linked to hash of the JSON.
-2. PDF is sent to signing service that distributes, handles the signatures.
-3. Sends back the signed pdf.
-4. _Our system verifies (a) the signed pdf, and (b) the original JSON file, and hashes these together on the chain._
-
-**Additional preferred features** :
-
-1. Sign XML directly with the visual representation.
-2. Use eIDAS signatures for the signing workflow.
-3. Send back signed data via an API call rather than e-mail or similar.
-
-ANNEXE: Old Summary f
