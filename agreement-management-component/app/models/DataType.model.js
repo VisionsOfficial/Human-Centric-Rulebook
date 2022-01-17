@@ -9,6 +9,11 @@ const schema = new Schema({
     name: String,
 
     /**
+     * URI for the asset (ODRL)
+     */
+    uid: String,
+
+    /**
     * Datatype name on the service's side
     */
     nameInService: String,

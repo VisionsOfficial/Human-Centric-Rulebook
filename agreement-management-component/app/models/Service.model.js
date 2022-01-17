@@ -4,118 +4,123 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt-nodejs");
 
 const schema = new Schema({
-    /**
-     * Service Name
-     */
-    name: String,
+	/**
+	 * URI for the party (ODRL)
+	 */
+	uid: String,
 
-    /**
-     * Logo of the service
-     */
-    logo: String,
+	/**
+	 * Service Name
+	 */
+	name: String,
 
-    /**
-     * Service password used to authenticate to Visions account
-     */
-    password: String,
+	/**
+	 * Logo of the service
+	 */
+	logo: String,
 
-    /**
-     * List of all purposes of the service
-     */
-    purposes: [{ type: Schema.ObjectId, ref: "Purpose" }],
+	/**
+	 * Service password used to authenticate to Visions account
+	 */
+	password: String,
 
-    /**
-     * List of all datatypes of a service
-     */
-    datatypes: [{ type: Schema.ObjectId, ref: "DataType" }],
+	/**
+	 * List of all purposes of the service
+	 */
+	purposes: [{ type: Schema.ObjectId, ref: "Purpose" }],
 
-    /**
-     * If the service is a processor for another service
-     */
-    isProcessing: {
-        type: Boolean,
-        default: false
-    },
+	/**
+	 * List of all datatypes of a service
+	 */
+	datatypes: [{ type: Schema.ObjectId, ref: "DataType" }],
 
-    /**
-     * User identifiers in that service
-     */
-    identifiers: [{ type: Schema.ObjectId, ref: "Identifier" }],
+	/**
+	 * If the service is a processor for another service
+	 */
+	isProcessing: {
+		type: Boolean,
+		default: false,
+	},
 
-    /**
-     * Public service Key
-     */
-    serviceKey: String,
+	/**
+	 * User identifiers in that service
+	 */
+	identifiers: [{ type: Schema.ObjectId, ref: "Identifier" }],
 
-    /**
-     * Secret service key, used to generate JWT for authenticating to the API
-     */
-    serviceSecretKey: String,
+	/**
+	 * Public service Key
+	 */
+	serviceKey: String,
 
-    /**
-     * The endpoints of the service
-     */
-    endpoints: {
-        /**
-         * Endpoint of the service used to export data
-         */
-        dataExport: String,
-        /**
-         * Endpoint to send signed consent to exporting service
-         */
-        consentImport: String,
-        /**
-         * Endpoint used by importing service
-         */
-        dataImport: String,
-        /**
-         * Endpoint of the service used to authenticate a new user
-         */
-        consentExport: String,
+	/**
+	 * Secret service key, used to generate JWT for authenticating to the API
+	 */
+	serviceSecretKey: String,
 
-        /**
-         * Website of the service
-         */
-        website: String,
-    },
+	/**
+	 * The endpoints of the service
+	 */
+	endpoints: {
+		/**
+		 * Endpoint of the service used to export data
+		 */
+		dataExport: String,
+		/**
+		 * Endpoint to send signed consent to exporting service
+		 */
+		consentImport: String,
+		/**
+		 * Endpoint used by importing service
+		 */
+		dataImport: String,
+		/**
+		 * Endpoint of the service used to authenticate a new user
+		 */
+		consentExport: String,
 
-    /**
-     * Governance info of the service
-     */
-    governance: {
-        registration: {
-            type: String,
-            default: "",
-        },
-        registeredOfficeAddress: {
-            type: String,
-            default: "",
-        },
-        legalRepresentative: {
-            name: {
-                type: String,
-                default: "",
-            },
-            email: {
-                type: String,
-                default: "",
-            },
-            profession: {
-                type: String,
-                default: "",
-            }
-        },
-        dataProtectionOfficer: {
-            name: {
-                type: String,
-                default: "",
-            },
-            email: {
-                type: String,
-                default: "",
-            }
-        },
-    },
+		/**
+		 * Website of the service
+		 */
+		website: String,
+	},
+
+	/**
+	 * Governance info of the service
+	 */
+	governance: {
+		registration: {
+			type: String,
+			default: "",
+		},
+		registeredOfficeAddress: {
+			type: String,
+			default: "",
+		},
+		legalRepresentative: {
+			name: {
+				type: String,
+				default: "",
+			},
+			email: {
+				type: String,
+				default: "",
+			},
+			profession: {
+				type: String,
+				default: "",
+			},
+		},
+		dataProtectionOfficer: {
+			name: {
+				type: String,
+				default: "",
+			},
+			email: {
+				type: String,
+				default: "",
+			},
+		},
+	},
 });
 
 schema.methods.generateHash = function (password) {
