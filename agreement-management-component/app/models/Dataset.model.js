@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
 	/**
-	 * URI for the asset collection (ODRL)
-	 */
-	uid: String,
-
-	/**
 	 * Data provider
 	 */
 	dataProvider: { type: Schema.ObjectId, ref: "Service" },
@@ -32,6 +27,10 @@ const schema = new Schema({
 	 * Created at
 	 */
 	createdAt: { type: Date, default: Date.now },
+});
+
+schema.virtual("uri").get(function () {
+	return `${process.env.RESOURCES_BASE_URL}/assetcollection/${this._id}`;
 });
 
 module.exports = mongoose.model("Dataset", schema);

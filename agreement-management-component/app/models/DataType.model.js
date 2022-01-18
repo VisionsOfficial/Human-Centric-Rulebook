@@ -9,11 +9,6 @@ const schema = new Schema({
     name: String,
 
     /**
-     * URI for the asset (ODRL)
-     */
-    uid: String,
-
-    /**
     * Datatype name on the service's side
     */
     nameInService: String,
@@ -87,6 +82,10 @@ const schema = new Schema({
             default: false
         }
     },
+});
+
+schema.virtual('uri').get(function() {
+    return `${process.env.RESOURCES_BASE_URL}/asset/${this._id}`;
 });
 
 module.exports = mongoose.model("DataType", schema);

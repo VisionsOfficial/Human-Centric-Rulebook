@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-	/**
-	 * URI for the purpose (ODRL refinement)
-	 */
-	uid: String,
 
 	/**
 	 * Purpose name
@@ -45,6 +41,10 @@ const schema = new Schema({
 		type: Schema.ObjectId,
 		ref: "Service",
 	},
+});
+
+schema.virtual("uri").get(function () {
+	return `${process.env.RESOURCES_BASE_URL}/purpose/${this._id}`;
 });
 
 module.exports = mongoose.model("Purpose", schema);

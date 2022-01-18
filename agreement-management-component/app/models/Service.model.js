@@ -5,11 +5,6 @@ const bcrypt = require("bcrypt-nodejs");
 
 const schema = new Schema({
 	/**
-	 * URI for the party (ODRL)
-	 */
-	uid: String,
-
-	/**
 	 * Service Name
 	 */
 	name: String,
@@ -121,6 +116,10 @@ const schema = new Schema({
 			},
 		},
 	},
+});
+
+schema.virtual("uri").get(function () {
+	return `${process.env.RESOURCES_BASE_URL}/party/${this._id}`;
 });
 
 schema.methods.generateHash = function (password) {
